@@ -2,7 +2,7 @@
 
 Energy is inside the world in the form of mako, below bedrock.
 
-![Mako Energy](mako.jpg)
+![Mako energy](images/mako.jpg)
 
 ## types
 
