@@ -1,2 +1,3 @@
 # Mako
-Ideas for a magic mod
+
+A magic mod.
