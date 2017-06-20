@@ -1,5 +1,6 @@
 package com.teambr.mako;
 
+import com.teambr.mako.api.mako.MakoRegistry;
 import com.teambr.mako.proxy.CommonProxy;
 import com.teambr.mako.utils.Reference;
 import net.minecraft.creativetab.CreativeTabs;
@@ -32,6 +33,7 @@ public class Mako {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) throws IOException {
+        MakoRegistry.getInstance();
         proxy.preInit(event);
     }
 
