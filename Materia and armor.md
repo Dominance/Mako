@@ -9,10 +9,10 @@
 
 There will be several types of materia each doing a different thing. For instance drawling from FF7 inspiration
 
-#####Green - magic
+##### Green - magic
 This will be your main used type of materia, Spells like fire or lighting to growth will be a green type materia.
 
-#####Purple - Independent
+##### Purple - Independent
 As examples independent materia will cover stuff like bonus EXP, Increase max HP, Increase Range of arrows/spells and so on.
 
 ##### Red - Summon
