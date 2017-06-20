@@ -24,3 +24,6 @@ Now for the side effects and balance. So if the player keeps extracting over the
 This will achieve a few things. Like players will have to search for smaller variants early game as if they cannot extract and contain the mako once they tap the surface they will corrupt there world with magic which is naturally held back by the crust. It will also mean that players will have to monitor the levels and set up automated shut offs and such so that they do not over extract.
 
 Corruption itself will of course have Adverse effects on the world but also anything that is within the corrupted biome type. Such as animals being mutated into monsters and monsters being evolved into harder types. The player itself may also be mutated or harmed due to much exposure to pure mako (think fallout radiation).
+
+## Mako is energy
+Instead of having machines use oil to produce energy, Mako is the energy. There will be no power cables only fluid.
