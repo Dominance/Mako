@@ -3,7 +3,10 @@ package com.teambr.mako.api.mako;
 import com.teambr.mako.utils.Reference;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 public class MakoRegistry {
 
@@ -14,9 +17,11 @@ public class MakoRegistry {
     }
 
     private HashMap<String, IMako> makoRegistry;
+    private Random random;
 
     private MakoRegistry() {
         makoRegistry = new HashMap<>();
+        random = new Random();
         this.addMako(new SimpleMako("air", new ResourceLocation(Reference.MODID, "icons/air"), 0));
         this.addMako(new SimpleMako("water", new ResourceLocation(Reference.MODID, "icons/water"), 0));
         this.addMako(new SimpleMako("nature", new ResourceLocation(Reference.MODID, "icons/nature"), 0));
@@ -38,5 +43,13 @@ public class MakoRegistry {
             return makoRegistry.get(name);
         }
         return null;
+    }
+
+    public IMako getRandomPureMako() {
+        List<IMako> pure = new ArrayList<>();
+        makoRegistry.forEach((s, mako) -> {
+            if (mako instanceof SimpleMako) pure.add(mako);
+        });
+        return pure.get(random.nextInt(pure.size()));
     }
 }
