@@ -37,7 +37,7 @@ public class GeiserChunkManager {
                     chunkGeiserData.put(event.getChunk().getPos(), GeiserData.readFromNBT(compound));
                     //System.out.println("Loaded Geiser data from " + event.getChunk().getPos() + " -> " + chunkGeiserData.get(event.getChunk().getPos()).toString());
                 } else {
-                    chunkGeiserData.put(event.getChunk().getPos(), null);
+                    //chunkGeiserData.put(event.getChunk().getPos(), null);
                 }
             }
         }
