@@ -1,13 +1,12 @@
 package com.teambr.mako.world;
 
 import com.teambr.mako.api.mako.MakoRegistry;
+import com.teambr.mako.network.GeiserInfoPacket;
+import com.teambr.mako.network.PacketManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.SPacketParticles;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraftforge.event.world.ChunkDataEvent;
@@ -98,8 +97,10 @@ public class GeiserChunkManager {
         if (!event.world.isRemote && event.world.getWorldTime() % 20 == 0) {
             for (EntityPlayer player : event.world.playerEntities) {
                 if (chunkGeiserData.containsKey(event.world.getChunkFromBlockCoords(player.getPosition()).getPos()) && chunkGeiserData.get(event.world.getChunkFromBlockCoords(player.getPosition()).getPos()) != null) {
-                    Packet<?> packet = new SPacketParticles(EnumParticleTypes.REDSTONE, true, (float) player.posX, (float) player.posY, (float) player.posZ, (float) 5, (float) 0, (float) 5, (float) 0, 10, 100, 100, 100, 100, 100);
-                    ((EntityPlayerMP) player).connection.sendPacket(packet);
+                    GeiserData data = chunkGeiserData.get(event.world.getChunkFromBlockCoords(player.getPosition()).getPos());
+                    GeiserInfoPacket packet = new GeiserInfoPacket(event.world.getChunkFromBlockCoords(player.getPosition()).getPos(), data.getMako(), data.getCurrentAmount(), data.getLastOutput());
+                    PacketManager.getInstance().getNetworkWrapper().sendTo(packet, (EntityPlayerMP) player);
+                    //((EntityPlayerMP) player).connection.sendPacket(packet);
                 }
             }
         }

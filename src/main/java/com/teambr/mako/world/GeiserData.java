@@ -39,4 +39,16 @@ public class GeiserData {
                 ", lastOutput=" + lastOutput +
                 '}';
     }
+
+    public IMako getMako() {
+        return mako;
+    }
+
+    public int getCurrentAmount() {
+        return currentAmount;
+    }
+
+    public long getLastOutput() {
+        return lastOutput;
+    }
 }

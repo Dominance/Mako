@@ -1,5 +1,6 @@
 package com.teambr.mako.proxy;
 
+import com.teambr.mako.network.PacketManager;
 import com.teambr.mako.world.GeiserChunkManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -13,7 +14,7 @@ public class CommonProxy {
     }
 
     public void init(FMLInitializationEvent event) {
-
+        PacketManager.getInstance();
     }
 
     public void postInit(FMLPostInitializationEvent event) {
