@@ -3,16 +3,16 @@ package com.teambr.mako.world;
 import com.teambr.mako.api.mako.MakoRegistry;
 import com.teambr.mako.network.GeiserInfoPacket;
 import com.teambr.mako.network.PacketManager;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.World;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -63,7 +63,7 @@ public class GeiserChunkManager {
             } else {
                 if (event.getData().hasKey("Geiser")) return;
                 float f = random.nextFloat();
-                if (f < 0.01D) {
+                if (f < 0.05D) {
                     GeiserData g = new GeiserData(MakoRegistry.getInstance().getRandomPureMako(), 0, 0);
                     chunkGeiserData.put(event.getChunk().getPos(), g);
                     event.getData().setTag("Geiser", g.writeFromNBT());
@@ -93,15 +93,14 @@ public class GeiserChunkManager {
     }
 
     @SubscribeEvent
-    public void onTick(TickEvent.WorldTickEvent event) {
-        if (!event.world.isRemote && event.world.getWorldTime() % 20 == 0) {
-            for (EntityPlayer player : event.world.playerEntities) {
-                if (chunkGeiserData.containsKey(event.world.getChunkFromBlockCoords(player.getPosition()).getPos()) && chunkGeiserData.get(event.world.getChunkFromBlockCoords(player.getPosition()).getPos()) != null) {
-                    GeiserData data = chunkGeiserData.get(event.world.getChunkFromBlockCoords(player.getPosition()).getPos());
-                    GeiserInfoPacket packet = new GeiserInfoPacket(event.world.getChunkFromBlockCoords(player.getPosition()).getPos(), data.getMako(), data.getCurrentAmount(), data.getLastOutput());
-                    PacketManager.getInstance().getNetworkWrapper().sendTo(packet, (EntityPlayerMP) player);
-                    //((EntityPlayerMP) player).connection.sendPacket(packet);
-                }
+    public void onChunkChange(EntityEvent.EnteringChunk event) {
+        World world = event.getEntity().world;
+        if (!world.isRemote && event.getEntity() instanceof EntityPlayerMP) {
+            ChunkPos chunkPos = new ChunkPos(event.getNewChunkX(), event.getNewChunkZ());
+            if (chunkGeiserData.containsKey(chunkPos) && chunkGeiserData.get(chunkPos) != null) {
+                GeiserData data = chunkGeiserData.get(chunkPos);
+                GeiserInfoPacket packet = new GeiserInfoPacket(chunkPos, data.getMako(), data.getCurrentAmount(), data.getLastOutput());
+                PacketManager.getInstance().getNetworkWrapper().sendTo(packet, (EntityPlayerMP) event.getEntity());
             }
         }
     }

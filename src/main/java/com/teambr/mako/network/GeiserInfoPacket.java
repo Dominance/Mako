@@ -2,6 +2,8 @@ package com.teambr.mako.network;
 
 import com.teambr.mako.api.mako.IMako;
 import com.teambr.mako.api.mako.MakoRegistry;
+import com.teambr.mako.proxy.client.render.GeiserRender;
+import com.teambr.mako.world.GeiserData;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.ChunkPos;
@@ -30,7 +32,8 @@ public class GeiserInfoPacket implements IMessage, IMessageHandler<GeiserInfoPac
     @Override
     public void fromBytes(ByteBuf buf) {
         this.pos = new ChunkPos(buf.readInt(), buf.readInt());
-        this.mako = MakoRegistry.getInstance().getMako(new PacketBuffer(buf).readString(50));
+        String name = new PacketBuffer(buf).readString(50);
+        this.mako = MakoRegistry.getInstance().getMako(name);
         this.amount = buf.readInt();
         this.last = buf.readLong();
 
@@ -48,7 +51,8 @@ public class GeiserInfoPacket implements IMessage, IMessageHandler<GeiserInfoPac
     @Override
     public IMessage onMessage(GeiserInfoPacket message, MessageContext ctx) {
         if (ctx.side.isClient()) {
-            System.out.println(message.toString());
+            GeiserRender.pos = message.pos;
+            GeiserRender.data = new GeiserData(message.mako, message.amount, message.last);
         }
         return null;
     }
