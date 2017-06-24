@@ -16,4 +16,5 @@ public interface IMultiblock {
 
     public boolean isStructureMultiblock(World world, BlockPos pos, IBlockState state, EnumFacing playerFacing);
 
+    public void createStructureMultiblock(World world, BlockPos pos, IBlockState state, EnumFacing playerFacing);
 }
