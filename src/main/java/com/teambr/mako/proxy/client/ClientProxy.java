@@ -13,8 +13,10 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
         OBJLoader.INSTANCE.addDomain("mako");
+
         MinecraftForge.EVENT_BUS.register(new GeiserRender());
-        test.registerModels();
+
+        blockRegistry.forEach((s, iRegistrable) -> iRegistrable.registerRender());
     }
 
     @Override

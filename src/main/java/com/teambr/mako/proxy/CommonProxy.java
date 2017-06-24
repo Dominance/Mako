@@ -1,24 +1,24 @@
 package com.teambr.mako.proxy;
 
+import com.teambr.mako.api.block.IRegistrable;
+import com.teambr.mako.block.MakoBlock;
 import com.teambr.mako.network.PacketManager;
-import com.teambr.mako.test.BlockTest;
 import com.teambr.mako.world.GeiserChunkManager;
-import net.minecraft.item.ItemBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.util.HashMap;
 
 public class CommonProxy {
 
-    public static BlockTest test;
+    public static HashMap<String, IRegistrable> blockRegistry = new HashMap<>();
 
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(GeiserChunkManager.getInstance());
-        test = new BlockTest();
-        GameRegistry.register(test);
-        GameRegistry.register(new ItemBlock(test), test.getRegistryName());
+
+        blockRegistry.forEach((s, iRegistrable) -> iRegistrable.register());
     }
 
     public void init(FMLInitializationEvent event) {
@@ -27,5 +27,9 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent event) {
 
+    }
+
+    public void addBlock(MakoBlock block) {
+        blockRegistry.put(block.getRegistryName().getResourcePath(), block);
     }
 }
