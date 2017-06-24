@@ -35,4 +35,7 @@ public class InvisibleMakoBlock extends MakoBlock {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 1, new ModelResourceLocation(this.getRegistryName().toString(), "invisible=true"));
     }
 
+    public void setInvisible(IBlockState state, boolean invisible) {
+        state.withProperty(INVISIBLE, invisible);
+    }
 }
