@@ -10,7 +10,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.IForgeRegistry;
+import org.apache.logging.log4j.Level;
 
 
 public class MakoBlock extends Block implements IRegistrable {
@@ -23,9 +24,15 @@ public class MakoBlock extends Block implements IRegistrable {
     }
 
     @Override
-    public void register() {
-        GameRegistry.register(this);
-        GameRegistry.register(new ItemBlock(this), this.getRegistryName());
+    public void register(IForgeRegistry registry) {
+        Mako.LOGGER.log(Level.INFO, "Registering block" + this.getRegistryName());
+        registry.register(this);
+    }
+
+    @Override
+    public void registerItem(IForgeRegistry registry) {
+        Mako.LOGGER.log(Level.INFO, "Registering item" + this.getRegistryName());
+        registry.register(new ItemBlock(this).setRegistryName(this.getRegistryName()).setUnlocalizedName(this.getUnlocalizedName()));
     }
 
     @Override

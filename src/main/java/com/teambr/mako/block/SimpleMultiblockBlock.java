@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class SimpleMultiblockBlock extends MakoBlock {
 
-    public static PropertyEnum<Render> RENDER = PropertyEnum.<Render>create("render", Render.class);
+    public static PropertyEnum<Render> RENDER = PropertyEnum.create("render", Render.class);
 
     private IMultiblock multiblock;
 
