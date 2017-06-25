@@ -1,6 +1,8 @@
 package com.teambr.mako.api.multiblock;
 
+import com.teambr.mako.api.tile.TileEntityMultiblock;
 import com.teambr.mako.block.InvisibleMakoBlock;
+import com.teambr.mako.block.SimpleMultiblockBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -65,11 +67,20 @@ public class MachineMultiblock implements IMultiblock {
                         ((InvisibleMakoBlock) test).setInvisible(world.getBlockState(pos), true);
                     }
                     if (isController(x, y, z)) {
-                        //TODO Create Tile and shuch
+                        TileEntityMultiblock tileEntityMultiblock = createTile(playerFacing);
+                        tileEntityMultiblock.setWorld(world);
+                        tileEntityMultiblock.setPos(pos);
+                        if (test instanceof SimpleMultiblockBlock) {
+                            ((SimpleMultiblockBlock) test).setMultiblockRender(world.getBlockState(pos), playerFacing, true);
+                        }
                     }
                 }
             }
         }
+    }
+
+    public TileEntityMultiblock createTile(EnumFacing facing) {
+        return new TileEntityMultiblock(facing, this);
     }
 
 }
