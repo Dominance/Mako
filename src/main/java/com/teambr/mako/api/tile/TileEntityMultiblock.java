@@ -3,7 +3,7 @@ package com.teambr.mako.api.tile;
 import com.teambr.mako.api.multiblock.IMultiblock;
 import net.minecraft.util.EnumFacing;
 
-public class TileEntityMultiblock extends TileEntityDirectional {
+public abstract class TileEntityMultiblock extends TileEntityDirectional implements IHasExternalCapability {
 
     private IMultiblock multiblock;
 
@@ -11,4 +11,6 @@ public class TileEntityMultiblock extends TileEntityDirectional {
         super(facing);
         this.multiblock = multiblock;
     }
+
+
 }

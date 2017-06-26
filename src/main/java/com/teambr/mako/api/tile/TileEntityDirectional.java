@@ -9,4 +9,8 @@ public class TileEntityDirectional extends TileEntityBase {
     public TileEntityDirectional(EnumFacing facing) {
         this.facing = facing;
     }
+
+    public EnumFacing getFacing() {
+        return facing;
+    }
 }
