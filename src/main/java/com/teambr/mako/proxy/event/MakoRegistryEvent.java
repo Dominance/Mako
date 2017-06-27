@@ -19,4 +19,5 @@ public class MakoRegistryEvent {
     public static void onRegistryEventItem(RegistryEvent.Register<Item> event) {
         CommonProxy.blockRegistry.forEach((s, iRegistrable) -> iRegistrable.registerItem(event.getRegistry()));
     }
+
 }

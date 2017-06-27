@@ -46,4 +46,10 @@ public class TileEntitySimpleMultiblockComponent extends TileEntityBase {
             return ((IHasExternalCapability) this.world.getTileEntity(controller)).getExternalCapability(pos, capability, facing);
         return super.getCapability(capability, facing);
     }
+
+    public void notifyContollerOnBreak() {
+        if (this.world.getTileEntity(controller) instanceof TileEntityMultiblock) {
+            ((TileEntityMultiblock) this.world.getTileEntity(controller)).destroyMultiblock();
+        }
+    }
 }

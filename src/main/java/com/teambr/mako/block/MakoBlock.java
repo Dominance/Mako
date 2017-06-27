@@ -21,6 +21,7 @@ public class MakoBlock extends Block implements IRegistrable {
         this.setRegistryName(new ResourceLocation(Reference.MODID, name));
         this.setUnlocalizedName(this.getRegistryName().toString());
         this.setCreativeTab(Mako.creativeTab);
+
     }
 
     @Override
