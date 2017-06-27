@@ -1,5 +1,7 @@
 package com.teambr.mako.api.tile;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.EnumFacing;
@@ -9,32 +11,41 @@ import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
 
-public class TileEntitySimpleMultiblockComponent extends TileEntityBase {
+public class TileEntitySimpleMultiblockComponent extends TileEntityBase implements IHasGui {
+
+    private static final String NBT_CONTROLLER = "Controller";
 
     private BlockPos controller;
 
-    public TileEntitySimpleMultiblockComponent(BlockPos controller, World world, BlockPos pos) {
+    public BlockPos getController() {
+        return controller;
+    }
+
+    public void setController(BlockPos controller) {
         this.controller = controller;
-        this.setWorld(world);
-        this.setPos(pos);
+        this.markDirty();
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound.setTag("controller", NBTUtil.createPosTag(controller));
-        return super.writeToNBT(compound);
+        NBTTagCompound tagCompound = super.writeToNBT(compound);
+        if (controller != null) tagCompound.setTag(NBT_CONTROLLER, NBTUtil.createPosTag(controller));
+        System.out.println(tagCompound.toString());
+        return tagCompound;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
+        System.out.println(compound.toString());
         controller = null;
-        if (compound.hasKey("controller")) controller = NBTUtil.getPosFromTag(compound.getCompoundTag("controller"));
+        if (compound.hasKey(NBT_CONTROLLER))
+            controller = NBTUtil.getPosFromTag(compound.getCompoundTag(NBT_CONTROLLER));
         super.readFromNBT(compound);
     }
 
     @Override
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-        if (this.world.getTileEntity(controller) instanceof IHasExternalCapability)
+        if (controller != null && this.world.getTileEntity(controller) instanceof IHasExternalCapability)
             return ((IHasExternalCapability) this.world.getTileEntity(controller)).hasExternalCapability(this.pos, capability, facing);
         return super.hasCapability(capability, facing);
     }
@@ -42,14 +53,22 @@ public class TileEntitySimpleMultiblockComponent extends TileEntityBase {
     @Nullable
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-        if (this.world.getTileEntity(controller) instanceof IHasExternalCapability)
+        if (controller != null && this.world.getTileEntity(controller) instanceof IHasExternalCapability)
             return ((IHasExternalCapability) this.world.getTileEntity(controller)).getExternalCapability(pos, capability, facing);
         return super.getCapability(capability, facing);
     }
 
     public void notifyContollerOnBreak() {
-        if (this.world.getTileEntity(controller) instanceof TileEntityMultiblock) {
+        if (controller != null && this.world.getTileEntity(controller) instanceof TileEntityMultiblock) {
             ((TileEntityMultiblock) this.world.getTileEntity(controller)).destroyMultiblock();
         }
+    }
+
+    @Override
+    public Container getClientGUI(int id, EntityPlayer player, World world, BlockPos pos) {
+        if (controller != null && this.world.getTileEntity(controller) instanceof TileEntityMultiblock) {
+            return ((TileEntityMultiblock) this.world.getTileEntity(controller)).getClientGUI(id, player, world, pos);
+        }
+        return null;
     }
 }

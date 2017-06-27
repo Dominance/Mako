@@ -4,7 +4,7 @@ package com.teambr.mako.api.tile;
 import com.teambr.mako.api.multiblock.IMultiblock;
 import net.minecraft.util.EnumFacing;
 
-public abstract class TileEntityMultiblock extends TileEntityDirectional implements IHasExternalCapability {
+public abstract class TileEntityMultiblock extends TileEntityDirectional implements IHasExternalCapability, IHasGui {
 
     private IMultiblock multiblock;
 
@@ -21,6 +21,7 @@ public abstract class TileEntityMultiblock extends TileEntityDirectional impleme
     }
 
     public void destroyMultiblock() {
-        getMultiblock().destroyMultiblock(world, this.pos, this.world.getBlockState(pos), getFacing());
+        if (multiblock != null)
+            getMultiblock().destroyMultiblock(world, this.pos, this.world.getBlockState(pos), getFacing());
     }
 }

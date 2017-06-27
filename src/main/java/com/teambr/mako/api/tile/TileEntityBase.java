@@ -17,7 +17,7 @@ public class TileEntityBase extends TileEntity {
         nbtStorage = new HashMap<>();
     }
 
-    @Nullable//DIRectional tile
+    @Nullable
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbt = new NBTTagCompound();
