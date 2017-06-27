@@ -44,9 +44,7 @@ public class MachineMultiblock implements IMultiblock {
                 for (int y = 0; y < multiblock[0].length; ++y) {
                     BlockPos blockPos = pos.offset(EnumFacing.DOWN, controller.getY()).offset(playerFacing.rotateY(), x).offset(EnumFacing.UP, y).offset(playerFacing, z);
                     Block test = world.getBlockState(blockPos).getBlock();
-                    //if (isController(x, y, z)) continue;
-                    if (!new ItemStack(test).isItemEqual(getStructureBlocks()[x][y][z])) {
-                        System.out.println(getStructureBlocks()[x][y][z]);
+                    if (!new ItemStack(test).isItemEqual(getStructureBlocks()[x][y][z]) || world.getTileEntity(blockPos) != null) {
                         return false;
                     }
                 }
@@ -62,17 +60,12 @@ public class MachineMultiblock implements IMultiblock {
                 for (int y = 0; y < multiblock[0].length; ++y) {
                     BlockPos blockPos = pos.offset(EnumFacing.DOWN, controller.getY()).offset(playerFacing.rotateY(), x).offset(EnumFacing.UP, y).offset(playerFacing, z);
                     Block test = world.getBlockState(blockPos).getBlock();
-                    System.out.println(test instanceof InvisibleMakoBlock);
                     if (world.getBlockState(blockPos).getProperties().containsKey(InvisibleMakoBlock.INVISIBLE)) {
-                        System.out.println(test.getRegistryName() + blockPos.toString());
                         world.setBlockState(blockPos, ((InvisibleMakoBlock) test).setInvisible(world.getBlockState(blockPos), true));
                     }
-                    if (test instanceof SimpleMultiblockBlock) System.out.println(x + "" + y + "" + z);
                     if (isController(x, y, z)) {
-                        System.out.println("cont" + (test instanceof SimpleMultiblockBlock));
                         if (test instanceof SimpleMultiblockBlock) {
                             world.setBlockState(pos, ((SimpleMultiblockBlock) test).setMultiblockRender(world.getBlockState(pos), playerFacing, true));
-                            System.out.println(world.getBlockState(blockPos).getValue(SimpleMultiblockBlock.RENDER));
                         }
                         TileEntityMultiblock tileEntityMultiblock = createTile(playerFacing);
                         if (tileEntityMultiblock == null) continue;
