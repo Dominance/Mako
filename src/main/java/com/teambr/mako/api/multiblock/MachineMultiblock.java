@@ -62,8 +62,10 @@ public class MachineMultiblock implements IMultiblock {
                 for (int y = 0; y < multiblock[0].length; ++y) {
                     BlockPos blockPos = pos.offset(EnumFacing.DOWN, controller.getY()).offset(playerFacing.rotateY(), x).offset(EnumFacing.UP, y).offset(playerFacing, z);
                     Block test = world.getBlockState(blockPos).getBlock();
-                    if (test instanceof InvisibleMakoBlock) {
-                        ((InvisibleMakoBlock) test).setInvisible(world.getBlockState(pos), true);
+                    System.out.println(test instanceof InvisibleMakoBlock);
+                    if (world.getBlockState(blockPos).getProperties().containsKey(InvisibleMakoBlock.INVISIBLE)) {
+                        System.out.println(test.getRegistryName() + blockPos.toString());
+                        world.setBlockState(blockPos, ((InvisibleMakoBlock) test).setInvisible(world.getBlockState(blockPos), true));
                     }
                     if (test instanceof SimpleMultiblockBlock) System.out.println(x + "" + y + "" + z);
                     if (isController(x, y, z)) {

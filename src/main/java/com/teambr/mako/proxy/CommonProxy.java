@@ -2,9 +2,10 @@ package com.teambr.mako.proxy;
 
 import com.teambr.mako.Mako;
 import com.teambr.mako.api.block.IRegistrable;
-import com.teambr.mako.block.InfuserControllerBlock;
 import com.teambr.mako.block.MakoBlock;
 import com.teambr.mako.block.SimpleMultiblockBlock;
+import com.teambr.mako.block.invisible.TestInvisibleBlock;
+import com.teambr.mako.block.multiblock.InfuserControllerBlock;
 import com.teambr.mako.multiblock.InfuserMultiblock;
 import com.teambr.mako.network.PacketManager;
 import com.teambr.mako.world.GeiserChunkManager;
@@ -22,6 +23,7 @@ public class CommonProxy {
 
     static {
         addBlock(new InfuserControllerBlock());
+        addBlock(new TestInvisibleBlock());
     }
 
     public void preInit(FMLPreInitializationEvent event) {

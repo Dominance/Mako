@@ -1,16 +1,12 @@
 {
   "forge_marker": 1,
   "variants": {
-    "state": {
-      "single": {
-        "model": "sand"
+    "invisible": {
+      "true": {
+        "model": "mako:invisible"
       },
-      "invisible": {
-        "model": "sand"
-      },
-      "renderer": {
-        "model": "mako:silo.obj",
-        "uvlock": true
+      "false": {
+        "model": "iron_block"
       }
     }
   }

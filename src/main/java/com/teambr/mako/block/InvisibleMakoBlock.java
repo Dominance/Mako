@@ -1,12 +1,13 @@
 package com.teambr.mako.block;
 
-
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraftforge.client.model.ModelLoader;
-
 
 public class InvisibleMakoBlock extends MakoBlock {
 
@@ -35,7 +36,16 @@ public class InvisibleMakoBlock extends MakoBlock {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 1, new ModelResourceLocation(this.getRegistryName().toString(), "invisible=true"));
     }
 
-    public void setInvisible(IBlockState state, boolean invisible) {
-        state.withProperty(INVISIBLE, invisible);
+    public IBlockState setInvisible(IBlockState state, boolean invisible) {
+        return state.withProperty(INVISIBLE, invisible);
+    }
+
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{INVISIBLE});
+    }
+
+    @Override
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.CUTOUT;
     }
 }
