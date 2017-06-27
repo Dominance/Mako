@@ -21,8 +21,7 @@ public class TileEntityBase extends TileEntity {
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        return new SPacketUpdateTileEntity(this.pos, 3, nbt);
+        return new SPacketUpdateTileEntity(this.pos, 3, this.writeToNBT(nbt));
     }
 
     @Override
@@ -32,12 +31,14 @@ public class TileEntityBase extends TileEntity {
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        nbtStorage.forEach((s, nbtTagCompoundINBTSerializable) -> compound.setTag(s, nbtTagCompoundINBTSerializable.serializeNBT()));
-        return compound;
+        NBTTagCompound tag = super.writeToNBT(compound);
+        nbtStorage.forEach((s, nbtTagCompoundINBTSerializable) -> tag.setTag(s, nbtTagCompoundINBTSerializable.serializeNBT()));
+        return tag;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
         nbtStorage.forEach((s, nbtTagCompoundINBTSerializable) -> {
             if (compound.hasKey(s)) nbtTagCompoundINBTSerializable.deserializeNBT(compound.getCompoundTag(s));
         });
@@ -46,4 +47,12 @@ public class TileEntityBase extends TileEntity {
     public void addNBTToStorage(String name, INBTSerializable<NBTTagCompound> nbtable) {
         nbtStorage.put(name, nbtable);
     }
+
+    public void sendUpdates() {
+        world.markBlockRangeForRenderUpdate(pos, pos);
+        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+        world.scheduleBlockUpdate(pos, this.getBlockType(), 0, 0);
+        markDirty();
+    }
+
 }

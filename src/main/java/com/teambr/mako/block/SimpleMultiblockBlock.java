@@ -78,11 +78,12 @@ public class SimpleMultiblockBlock extends MakoBlock implements ITileEntityProvi
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (worldIn.isRemote) return true;
         TileEntity tile = worldIn.getTileEntity(pos);
-        System.out.println(tile);
-        if (tile == null) return false;
+        System.out.println(((TileEntityMultiblock) tile).getFacing());
+        if (tile == null) return true;
         if (tile instanceof TileEntityMultiblock) {
-            if (((TileEntityMultiblock) tile).getMultiblock() == null && multiblock.isStructureMultiblock(worldIn, pos, state, facing.getOpposite())) {
+            if (!((TileEntityMultiblock) tile).isFormed() && multiblock.isStructureMultiblock(worldIn, pos, state, facing.getOpposite())) {
                 multiblock.createStructureMultiblock(worldIn, pos, state, facing.getOpposite());
                 return false;
             }
@@ -102,6 +103,7 @@ public class SimpleMultiblockBlock extends MakoBlock implements ITileEntityProvi
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        if (worldIn.isRemote) return;
         if (worldIn.getTileEntity(pos) != null && worldIn.getTileEntity(pos) instanceof TileEntityMultiblock) {
             ((TileEntityMultiblock) worldIn.getTileEntity(pos)).destroyMultiblock();
         }

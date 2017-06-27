@@ -2,6 +2,7 @@ package com.teambr.mako.tile;
 
 
 import com.teambr.mako.api.tile.TileEntityMultiblock;
+import com.teambr.mako.multiblock.InfuserMultiblock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.EnumFacing;
@@ -15,6 +16,7 @@ public class TileEntityInfuser extends TileEntityMultiblock {
 
     public TileEntityInfuser() {
         super();
+        this.setMultiblock(InfuserMultiblock.INFUSER_MULTIBLOCK);
     }
 
     @Override

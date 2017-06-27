@@ -1,5 +1,6 @@
 package com.teambr.mako.api.multiblock;
 
+import com.teambr.mako.api.tile.TileEntityBase;
 import com.teambr.mako.api.tile.TileEntityMultiblock;
 import com.teambr.mako.api.tile.TileEntitySimpleMultiblockComponent;
 import com.teambr.mako.block.InvisibleMakoBlock;
@@ -74,6 +75,7 @@ public class MachineMultiblock implements IMultiblock {
                         TileEntityMultiblock tileEntityMultiblock = (TileEntityMultiblock) world.getTileEntity(blockPos);
                         tileEntityMultiblock.setFacing(playerFacing);
                         tileEntityMultiblock.setMultiblock(this);
+                        tileEntityMultiblock.setFormed(true);
                         tileEntityMultiblock.markDirty();
                     }
                 }
@@ -88,14 +90,21 @@ public class MachineMultiblock implements IMultiblock {
                 for (int y = 0; y < multiblock[0].length; ++y) {
                     BlockPos blockPos = pos.offset(EnumFacing.DOWN, controller.getY()).offset(facing.rotateY(), x).offset(EnumFacing.UP, y).offset(facing, z);
                     Block test = world.getBlockState(blockPos).getBlock();
-                    if (world.getTileEntity(blockPos) != null) {//TODO Implement item drop
-                        world.removeTileEntity(blockPos);
-                        if (test instanceof InvisibleMakoBlock) {
-                            world.setBlockState(blockPos, ((InvisibleMakoBlock) test).setInvisible(world.getBlockState(blockPos), false));
-                        }
-                        if (test instanceof SimpleMultiblockBlock) {
-                            world.setBlockState(pos, ((SimpleMultiblockBlock) test).setMultiblockRender(world.getBlockState(pos), facing, false));
-                        }
+                    TileEntityBase base = (TileEntityBase) world.getTileEntity(blockPos);
+                    if (base != null) {//TODO Implement item drop
+                        IBlockState old = world.getBlockState(blockPos);
+                        IBlockState n = null;
+                        if (test instanceof InvisibleMakoBlock)
+                            n = ((InvisibleMakoBlock) test).setInvisible(world.getBlockState(blockPos), false);
+                        if (test instanceof SimpleMultiblockBlock)
+                            n = ((SimpleMultiblockBlock) test).setMultiblockRender(world.getBlockState(pos), facing, false);
+                        if (n == null) continue;
+                        world.setBlockState(blockPos, n);
+                        world.markBlockRangeForRenderUpdate(blockPos, blockPos);
+                        world.notifyBlockUpdate(blockPos, old, n, 3);
+                        world.scheduleBlockUpdate(blockPos, test, 0, 0);
+                        base.sendUpdates();
+                        if (base instanceof TileEntityMultiblock) ((TileEntityMultiblock) base).setFormed(false);
                     }
                 }
             }

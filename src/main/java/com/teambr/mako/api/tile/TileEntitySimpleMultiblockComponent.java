@@ -26,21 +26,20 @@ public class TileEntitySimpleMultiblockComponent extends TileEntityBase implemen
         this.markDirty();
     }
 
+
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         NBTTagCompound tagCompound = super.writeToNBT(compound);
         if (controller != null) tagCompound.setTag(NBT_CONTROLLER, NBTUtil.createPosTag(controller));
-        System.out.println(tagCompound.toString());
         return tagCompound;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        System.out.println(compound.toString());
+        super.readFromNBT(compound);
         controller = null;
         if (compound.hasKey(NBT_CONTROLLER))
             controller = NBTUtil.getPosFromTag(compound.getCompoundTag(NBT_CONTROLLER));
-        super.readFromNBT(compound);
     }
 
     @Override
@@ -60,6 +59,7 @@ public class TileEntitySimpleMultiblockComponent extends TileEntityBase implemen
 
     public void notifyContollerOnBreak() {
         if (controller != null && this.world.getTileEntity(controller) instanceof TileEntityMultiblock) {
+            System.out.println("Notirfing controller");
             ((TileEntityMultiblock) this.world.getTileEntity(controller)).destroyMultiblock();
         }
     }

@@ -61,7 +61,9 @@ public class InvisibleMakoBlock extends MakoBlock implements ITileEntityProvider
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        if (worldIn.isRemote) return;
         if (worldIn.getTileEntity(pos) != null && worldIn.getTileEntity(pos) instanceof TileEntitySimpleMultiblockComponent) {
+            System.out.println("Breaking the block");
             ((TileEntitySimpleMultiblockComponent) worldIn.getTileEntity(pos)).notifyContollerOnBreak();
         }
         super.breakBlock(worldIn, pos, state);
@@ -75,6 +77,7 @@ public class InvisibleMakoBlock extends MakoBlock implements ITileEntityProvider
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        //if (worldIn.isRemote) return true;
         TileEntity tile = worldIn.getTileEntity(pos);
         System.out.println(((TileEntitySimpleMultiblockComponent) tile).getController());
         return true;
