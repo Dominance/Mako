@@ -1,6 +1,7 @@
 package com.teambr.mako.api.block;
 
-import net.minecraftforge.fml.common.registry.IForgeRegistry;
+
+import net.minecraftforge.registries.IForgeRegistry;
 
 public interface IRegistrable {
 

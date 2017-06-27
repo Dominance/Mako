@@ -85,7 +85,7 @@ public class SimpleMultiblockBlock extends MakoBlock implements ITileEntityProvi
         if (tile instanceof TileEntityMultiblock) {
             if (!((TileEntityMultiblock) tile).isFormed() && multiblock.isStructureMultiblock(worldIn, pos, state, facing.getOpposite())) {
                 multiblock.createStructureMultiblock(worldIn, pos, state, facing.getOpposite());
-                return false;
+                return true;
             }
         } else {
 
