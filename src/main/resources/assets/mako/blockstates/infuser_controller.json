@@ -1,0 +1,68 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "custom": {
+      "flip-v": true
+    }
+  },
+  "variants": {
+    "render": {
+      "off": {
+        "model": "stone"
+      },
+      "north": {
+        "model": "mako:infuser.obj",
+        "transform": {
+          "translation": [
+            1,
+            -1,
+            0
+          ],
+          "rotation": {
+            "y": -90
+          }
+        }
+      },
+      "south": {
+        "model": "mako:infuser.obj",
+        "transform": {
+          "translation": [
+            -1,
+            -1,
+            0
+          ],
+          "rotation": {
+            "y": 90
+          }
+        }
+      },
+      "west": {
+        "model": "mako:infuser.obj",
+        "transform": {
+          "translation": [
+            0,
+            -1,
+            -1
+          ],
+          "rotation": {
+            "y": 0
+          }
+        }
+      },
+      "east": {
+        "model": "mako:infuser.obj",
+        "transform": {
+          "translation": [
+            0,
+            -1,
+            1
+          ],
+          "rotation": {
+            "y": 180
+          }
+        }
+      }
+    }
+  }
+}

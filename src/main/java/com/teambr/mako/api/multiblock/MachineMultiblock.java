@@ -39,14 +39,14 @@ public class MachineMultiblock implements IMultiblock {
 
     @Override
     public boolean isStructureMultiblock(World world, BlockPos pos, IBlockState state, EnumFacing playerFacing) {
-        BlockPos origin = pos.offset(playerFacing).offset(EnumFacing.DOWN, controller.getY());
         for (int x = 0; x < multiblock.length; ++x) {
             for (int z = 0; z < multiblock[0][0].length; ++z) {
                 for (int y = 0; y < multiblock[0].length; ++y) {
-                    BlockPos blockPos = origin.offset(playerFacing, x).offset(EnumFacing.UP, y).offset(playerFacing.rotateY(), z);
+                    BlockPos blockPos = pos.offset(EnumFacing.DOWN, controller.getY()).offset(playerFacing.rotateY(), x).offset(EnumFacing.UP, y).offset(playerFacing, z);
                     Block test = world.getBlockState(blockPos).getBlock();
-                    if (isController(x, y, z)) continue;
-                    if (!new ItemStack(test).getItem().equals(getStructureBlocks()[x][y][z].getItem())) {
+                    //if (isController(x, y, z)) continue;
+                    if (!new ItemStack(test).isItemEqual(getStructureBlocks()[x][y][z])) {
+                        System.out.println(getStructureBlocks()[x][y][z]);
                         return false;
                     }
                 }
@@ -57,22 +57,25 @@ public class MachineMultiblock implements IMultiblock {
 
     @Override
     public void createStructureMultiblock(World world, BlockPos pos, IBlockState state, EnumFacing playerFacing) {
-        BlockPos origin = pos.offset(playerFacing).offset(EnumFacing.DOWN, controller.getY());
         for (int x = 0; x < multiblock.length; ++x) {
             for (int z = 0; z < multiblock[0][0].length; ++z) {
                 for (int y = 0; y < multiblock[0].length; ++y) {
-                    BlockPos blockPos = origin.offset(playerFacing, x).offset(EnumFacing.UP, y).offset(playerFacing.rotateY(), z);
+                    BlockPos blockPos = pos.offset(EnumFacing.DOWN, controller.getY()).offset(playerFacing.rotateY(), x).offset(EnumFacing.UP, y).offset(playerFacing, z);
                     Block test = world.getBlockState(blockPos).getBlock();
                     if (test instanceof InvisibleMakoBlock) {
                         ((InvisibleMakoBlock) test).setInvisible(world.getBlockState(pos), true);
                     }
+                    if (test instanceof SimpleMultiblockBlock) System.out.println(x + "" + y + "" + z);
                     if (isController(x, y, z)) {
+                        System.out.println("cont" + (test instanceof SimpleMultiblockBlock));
+                        if (test instanceof SimpleMultiblockBlock) {
+                            world.setBlockState(pos, ((SimpleMultiblockBlock) test).setMultiblockRender(world.getBlockState(pos), playerFacing, true));
+                            System.out.println(world.getBlockState(blockPos).getValue(SimpleMultiblockBlock.RENDER));
+                        }
                         TileEntityMultiblock tileEntityMultiblock = createTile(playerFacing);
+                        if (tileEntityMultiblock == null) continue;
                         tileEntityMultiblock.setWorld(world);
                         tileEntityMultiblock.setPos(pos);
-                        if (test instanceof SimpleMultiblockBlock) {
-                            ((SimpleMultiblockBlock) test).setMultiblockRender(world.getBlockState(pos), playerFacing, true);
-                        }
                     }
                 }
             }
@@ -80,7 +83,24 @@ public class MachineMultiblock implements IMultiblock {
     }
 
     public TileEntityMultiblock createTile(EnumFacing facing) {
-        return new TileEntityMultiblock(facing, this);
+        return null;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("ID: " + getName() + "\n");
+        for (int y = 0; y < multiblock[0].length; ++y) {
+            for (int x = 0; x < multiblock.length; ++x) {
+                for (int z = 0; z < multiblock[0][0].length; ++z) {
+                    char c = isController(x, y, z) ? 'C' : getStructureBlocks()[x][y][z].isEmpty() ? ' ' : 'I';
+                    builder.append(c);
+                }
+                builder.append("\n");
+            }
+            builder.append("------------\n");
+        }
+        return builder.toString();
+    }
+
 
 }

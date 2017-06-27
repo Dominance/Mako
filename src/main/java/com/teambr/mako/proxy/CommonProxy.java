@@ -2,7 +2,10 @@ package com.teambr.mako.proxy;
 
 import com.teambr.mako.Mako;
 import com.teambr.mako.api.block.IRegistrable;
+import com.teambr.mako.block.InfuserControllerBlock;
 import com.teambr.mako.block.MakoBlock;
+import com.teambr.mako.block.SimpleMultiblockBlock;
+import com.teambr.mako.multiblock.InfuserMultiblock;
 import com.teambr.mako.network.PacketManager;
 import com.teambr.mako.world.GeiserChunkManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,7 +21,7 @@ public class CommonProxy {
     public static HashMap<String, IRegistrable> blockRegistry = new HashMap<>();
 
     static {
-        //Create Blocks here
+        addBlock(new InfuserControllerBlock());
     }
 
     public void preInit(FMLPreInitializationEvent event) {
@@ -27,6 +30,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         PacketManager.getInstance();
+        ((SimpleMultiblockBlock) blockRegistry.get("infuser_controller")).setMultiblock(InfuserMultiblock.INFUSER_MULTIBLOCK);
     }
 
     public void postInit(FMLPostInitializationEvent event) {
