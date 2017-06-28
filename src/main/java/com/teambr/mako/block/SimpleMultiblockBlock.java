@@ -3,7 +3,6 @@ package com.teambr.mako.block;
 import com.teambr.mako.api.block.Render;
 import com.teambr.mako.api.multiblock.IMultiblock;
 import com.teambr.mako.api.tile.TileEntityMultiblock;
-import com.teambr.mako.api.tile.TileEntitySimpleMultiblockComponent;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -82,14 +81,10 @@ public class SimpleMultiblockBlock extends MakoBlock implements ITileEntityProvi
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) return true;
         TileEntity tile = worldIn.getTileEntity(pos);
-        System.out.println(((TileEntityMultiblock) tile).getFacing());
-        if (tile == null) return true;
-        if (tile instanceof TileEntityMultiblock) {
-            if (!((TileEntityMultiblock) tile).isFormed() && multiblock.isStructureMultiblock(worldIn, pos, state, facing.getOpposite())) {
+        if (tile == null && multiblock.isStructureMultiblock(worldIn, pos, state, facing.getOpposite())) {
                 multiblock.createStructureMultiblock(worldIn, pos, state, facing.getOpposite());
                 return true;
-            }
-        } else {
+            } else {
 
         }
         return true;
@@ -115,6 +110,6 @@ public class SimpleMultiblockBlock extends MakoBlock implements ITileEntityProvi
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntitySimpleMultiblockComponent();
+        return null;
     }
 }

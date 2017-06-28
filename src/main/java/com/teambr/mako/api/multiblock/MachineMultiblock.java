@@ -5,14 +5,17 @@ import com.teambr.mako.api.tile.TileEntityMultiblock;
 import com.teambr.mako.api.tile.TileEntitySimpleMultiblockComponent;
 import com.teambr.mako.block.InvisibleMakoBlock;
 import com.teambr.mako.block.SimpleMultiblockBlock;
+import com.teambr.mako.utils.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class MachineMultiblock implements IMultiblock {
+public class MachineMultiblock<T extends TileEntityMultiblock> implements IMultiblock {
 
     private String name;
     private ItemStack[][][] multiblock;
@@ -64,19 +67,29 @@ public class MachineMultiblock implements IMultiblock {
                     Block test = world.getBlockState(blockPos).getBlock();
                     if (test instanceof InvisibleMakoBlock) {
                         world.setBlockState(blockPos, ((InvisibleMakoBlock) test).setInvisible(world.getBlockState(blockPos), true));
-                        TileEntitySimpleMultiblockComponent component = (TileEntitySimpleMultiblockComponent) world.getTileEntity(blockPos);
+                        TileEntitySimpleMultiblockComponent component = new TileEntitySimpleMultiblockComponent();
+                        component.setWorld(world);
+                        component.setPos(blockPos);
                         component.setController(pos);
+                        world.setTileEntity(blockPos, component);
                         component.markDirty();
+                        System.out.println(component);
                     }
                     if (isController(x, y, z)) {
                         if (test instanceof SimpleMultiblockBlock) {
                             world.setBlockState(pos, ((SimpleMultiblockBlock) test).setMultiblockRender(world.getBlockState(pos), playerFacing, true));
                         }
-                        TileEntityMultiblock tileEntityMultiblock = (TileEntityMultiblock) world.getTileEntity(blockPos);
+                        NBTTagCompound c = new NBTTagCompound();
+                        c.setString("id", new ResourceLocation(Reference.MODID, name + "_tile").toString());
+                        TileEntityMultiblock tileEntityMultiblock = (TileEntityMultiblock) T.create(world, c);
+                        tileEntityMultiblock.setPos(blockPos);
+                        tileEntityMultiblock.setWorld(world);
                         tileEntityMultiblock.setFacing(playerFacing);
                         tileEntityMultiblock.setMultiblock(this);
                         tileEntityMultiblock.setFormed(true);
+                        world.setTileEntity(blockPos, tileEntityMultiblock);
                         tileEntityMultiblock.markDirty();
+                        System.out.println(world.getTileEntity(blockPos));
                     }
                 }
             }
@@ -104,6 +117,7 @@ public class MachineMultiblock implements IMultiblock {
                         world.notifyBlockUpdate(blockPos, old, n, 3);
                         world.scheduleBlockUpdate(blockPos, test, 0, 0);
                         base.sendUpdates();
+                        world.removeTileEntity(blockPos);
                         if (base instanceof TileEntityMultiblock) ((TileEntityMultiblock) base).setFormed(false);
                     }
                 }

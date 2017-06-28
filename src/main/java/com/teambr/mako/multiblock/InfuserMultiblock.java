@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
-public class InfuserMultiblock extends MachineMultiblock {
+public class InfuserMultiblock<TileEntityInfuser> extends MachineMultiblock {
 
     private static ItemStack[][][] structure = new ItemStack[2][2][1];
     public static InfuserMultiblock INFUSER_MULTIBLOCK = new InfuserMultiblock("infuser", structure, new BlockPos(0, 1, 0));

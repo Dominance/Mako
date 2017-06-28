@@ -74,13 +74,14 @@ public class InvisibleMakoBlock extends MakoBlock implements ITileEntityProvider
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntitySimpleMultiblockComponent();
+        return null;
     }
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         //if (worldIn.isRemote) return true;
         TileEntity tile = worldIn.getTileEntity(pos);
+        if (tile == null) return true;
         System.out.println(((TileEntitySimpleMultiblockComponent) tile).getController());
         return true;
     }
