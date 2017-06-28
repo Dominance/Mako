@@ -5,7 +5,7 @@ import com.teambr.mako.api.multiblock.IMultiblock;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
-public abstract class TileEntityMultiblock extends TileEntityDirectional implements IHasExternalCapability, IHasGui {
+public abstract class TileEntityMultiblock extends TileEntityDirectional implements IHasExternalCapability {
 
     private IMultiblock multiblock;
 
