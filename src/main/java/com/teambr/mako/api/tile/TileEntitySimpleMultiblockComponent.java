@@ -1,17 +1,14 @@
 package com.teambr.mako.api.tile;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
 
-public class TileEntitySimpleMultiblockComponent extends TileEntityBase implements IHasGui {
+public class TileEntitySimpleMultiblockComponent extends TileEntityBase {
 
     private static final String NBT_CONTROLLER = "Controller";
 
@@ -63,11 +60,4 @@ public class TileEntitySimpleMultiblockComponent extends TileEntityBase implemen
         }
     }
 
-    @Override
-    public Container getClientGUI(int id, EntityPlayer player, World world, BlockPos pos) {
-        if (controller != null && this.world.getTileEntity(controller) instanceof TileEntityMultiblock) {
-            return ((TileEntityMultiblock) this.world.getTileEntity(controller)).getClientGUI(id, player, world, pos);
-        }
-        return null;
-    }
 }
