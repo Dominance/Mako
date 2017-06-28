@@ -7,14 +7,10 @@ import net.minecraft.util.EnumFacing;
 
 public abstract class TileEntityMultiblock extends TileEntityDirectional implements IHasExternalCapability, IHasGui {
 
-    public static String NBT_FORMED = "Formed";
-
     private IMultiblock multiblock;
-    private boolean isFormed;
 
     public TileEntityMultiblock() {
         super(EnumFacing.NORTH);
-        isFormed = false;
     }
 
     public IMultiblock getMultiblock() {
@@ -24,14 +20,12 @@ public abstract class TileEntityMultiblock extends TileEntityDirectional impleme
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound = super.writeToNBT(compound);
-        compound.setBoolean(NBT_FORMED, isFormed);
         return compound;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        isFormed = false;
-        if (compound.hasKey(NBT_FORMED)) isFormed = compound.getBoolean(NBT_FORMED);
+
         super.readFromNBT(compound);
     }
 
@@ -41,16 +35,7 @@ public abstract class TileEntityMultiblock extends TileEntityDirectional impleme
 
     public void destroyMultiblock() {
         if (multiblock != null) {
-            System.out.println("Destroing mutli");
             getMultiblock().destroyMultiblock(world, this.pos, this.world.getBlockState(pos), getFacing());
         }
-    }
-
-    public boolean isFormed() {
-        return isFormed;
-    }
-
-    public void setFormed(boolean formed) {
-        isFormed = formed;
     }
 }
