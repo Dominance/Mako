@@ -79,13 +79,10 @@ public class SimpleMultiblockBlock extends MakoBlock implements ITileEntityProvi
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) return true;
         TileEntity tile = worldIn.getTileEntity(pos);
         if (tile == null && multiblock.isStructureMultiblock(worldIn, pos, state, facing.getOpposite())) {
-                multiblock.createStructureMultiblock(worldIn, pos, state, facing.getOpposite());
-                return true;
-            } else {
-
+            multiblock.createStructureMultiblock(worldIn, pos, state, facing.getOpposite());
+            return true;
         }
         return true;
     }

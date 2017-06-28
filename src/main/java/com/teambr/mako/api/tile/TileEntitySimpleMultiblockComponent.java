@@ -59,7 +59,6 @@ public class TileEntitySimpleMultiblockComponent extends TileEntityBase implemen
 
     public void notifyContollerOnBreak() {
         if (controller != null && this.world.getTileEntity(controller) instanceof TileEntityMultiblock) {
-            System.out.println("Notirfing controller");
             ((TileEntityMultiblock) this.world.getTileEntity(controller)).destroyMultiblock();
         }
     }

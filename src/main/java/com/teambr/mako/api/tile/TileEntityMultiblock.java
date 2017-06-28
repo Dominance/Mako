@@ -25,7 +25,6 @@ public abstract class TileEntityMultiblock extends TileEntityDirectional impleme
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-
         super.readFromNBT(compound);
     }
 

@@ -73,7 +73,6 @@ public class MachineMultiblock<T extends TileEntityMultiblock> implements IMulti
                         component.setController(pos);
                         world.setTileEntity(blockPos, component);
                         component.markDirty();
-                        System.out.println(component);
                     }
                     if (isController(x, y, z)) {
                         if (test instanceof SimpleMultiblockBlock) {
@@ -86,10 +85,8 @@ public class MachineMultiblock<T extends TileEntityMultiblock> implements IMulti
                         tileEntityMultiblock.setWorld(world);
                         tileEntityMultiblock.setFacing(playerFacing);
                         tileEntityMultiblock.setMultiblock(this);
-                        tileEntityMultiblock.setFormed(true);
                         world.setTileEntity(blockPos, tileEntityMultiblock);
                         tileEntityMultiblock.markDirty();
-                        System.out.println(world.getTileEntity(blockPos));
                     }
                 }
             }
@@ -118,7 +115,6 @@ public class MachineMultiblock<T extends TileEntityMultiblock> implements IMulti
                         world.scheduleBlockUpdate(blockPos, test, 0, 0);
                         base.sendUpdates();
                         world.removeTileEntity(blockPos);
-                        if (base instanceof TileEntityMultiblock) ((TileEntityMultiblock) base).setFormed(false);
                     }
                 }
             }
