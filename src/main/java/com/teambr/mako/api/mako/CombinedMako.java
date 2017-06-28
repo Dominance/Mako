@@ -30,6 +30,14 @@ public class CombinedMako implements IMako {
 
     @Override
     public int color() {
-        return 0;
+        return color;
+    }
+
+    public IMako getParentFirst() {
+        return parentFirst;
+    }
+
+    public IMako getParentSecond() {
+        return parentSecond;
     }
 }

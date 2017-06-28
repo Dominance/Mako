@@ -52,4 +52,14 @@ public class MakoRegistry {
         });
         return pure.get(random.nextInt(pure.size()));
     }
+
+    public CombinedMako getCombinedMakoFromParents(IMako first, IMako second) {
+        for (IMako mako : makoRegistry.values()) {
+            if (!(mako instanceof CombinedMako)) continue;
+            if ((((CombinedMako) mako).getParentFirst().equals(first) && ((CombinedMako) mako).getParentSecond().equals(second)) || (((CombinedMako) mako).getParentFirst().equals(second) && ((CombinedMako) mako).getParentSecond().equals(first))) {
+                return (CombinedMako) mako;
+            }
+        }
+        return null;
+    }
 }

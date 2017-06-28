@@ -1,6 +1,9 @@
 package com.teambr.mako.tile;
 
 
+import com.teambr.mako.api.mako.CombinedMako;
+import com.teambr.mako.api.mako.MakoRegistry;
+import com.teambr.mako.api.mako.stack.MakoStack;
 import com.teambr.mako.api.mako.stack.MakoTank;
 import com.teambr.mako.api.tile.TileEntityMultiblock;
 import com.teambr.mako.multiblock.InfuserMultiblock;
@@ -50,6 +53,21 @@ public class TileEntityInfuser extends TileEntityMultiblock {
     @Override
     public <T> T getExternalCapability(BlockPos pos, Capability<T> capability, @Nullable EnumFacing facing) {
         return null;
+    }
+
+    private static int WORK_AMOUNT = 1;
+
+    private void work() {
+        if (primary.getMakoStack() == null) return;
+        if (secondary.getMakoStack() == null) return;
+        if (primary.getMakoAmount() < WORK_AMOUNT && secondary.getMakoAmount() < WORK_AMOUNT) return;
+        CombinedMako mako = MakoRegistry.getInstance().getCombinedMakoFromParents(primary.getMakoStack().getMako(), secondary.getMakoStack().getMako());
+        if (mako == null) return;
+        if (output.getMakoStack() == null || (output.getMakoStack().getMako().equals(mako)) && output.getMakoAmount() + 2 * WORK_AMOUNT <= output.getMaxMakoAmount()) {
+            primary.drain(WORK_AMOUNT);
+            secondary.drain(WORK_AMOUNT);
+            output.fill(new MakoStack(mako, WORK_AMOUNT * 2));
+        }
     }
 
 }

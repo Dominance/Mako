@@ -1,8 +1,6 @@
 package com.teambr.mako.api.mako.stack;
 
 
-import net.minecraftforge.fluids.FluidStack;
-
 import javax.annotation.Nullable;
 
 public interface IMakoTank {
@@ -15,8 +13,8 @@ public interface IMakoTank {
 
     MakoTankInfo getTankInfo();
 
-    int fill(MakoStack stack, boolean doFill);
+    void fill(MakoStack stack);
 
     @Nullable
-    FluidStack drain(int max, boolean doDrain);
+    void drain(int drainAmount);
 }

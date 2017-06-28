@@ -57,4 +57,11 @@ public class MakoStack {
         return this.mako.equals(other.getMako());
     }
 
+    public void drain(int amount) {
+        this.amount -= amount;
+    }
+
+    public void fill(int amount) {
+        this.amount += amount;
+    }
 }

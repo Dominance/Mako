@@ -1,14 +1,13 @@
 package com.teambr.mako.api.mako.stack;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
 
 public class MakoTank implements IMakoTank, IMakoHandler {
 
     @Nullable
-    protected MakoStack mako; //TODO Set as a capability
+    protected MakoStack mako;
     protected int capacity;
 
     public MakoTank(int capacity) {
@@ -20,11 +19,6 @@ public class MakoTank implements IMakoTank, IMakoHandler {
         this.capacity = capacity;
     }
 
-    @Nullable
-    @Override
-    public FluidStack drain(MakoStack res, boolean doDrain) {
-        return null;
-    }
 
     @Override
     public MakoStack getMakoStack() {
@@ -51,15 +45,19 @@ public class MakoTank implements IMakoTank, IMakoHandler {
     }
 
     @Override
-    public int fill(MakoStack stack, boolean doFill) { //TODO Implement Fill & Drain methods
-        return 0;
+    public void fill(MakoStack stack) {
+        if (mako.isMakoEqual(stack)) {
+            mako.fill(stack.getAmount());
+        }
     }
 
     @Nullable
     @Override
-    public FluidStack drain(int max, boolean doDrain) {
-        return null;
+    public void drain(int drainAmount) {
+        mako.drain(drainAmount);
+        if (mako.getAmount() <= 0) mako = null;
     }
+
 
     public MakoTank readFromNBT(NBTTagCompound nbt) {
         if (!nbt.hasKey("Empty")) {
@@ -77,5 +75,13 @@ public class MakoTank implements IMakoTank, IMakoHandler {
             mako.writeToNBT(nbt);
         }
         return nbt;
+    }
+
+    @Nullable
+    @Override
+    public void drain(MakoStack res) {
+        if (mako.isMakoEqual(res)) {
+            mako.drain(res.getAmount());
+        }
     }
 }
