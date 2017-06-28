@@ -9,6 +9,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -52,6 +53,7 @@ public class SimpleMultiblockBlock extends MakoBlock implements ITileEntityProvi
     @Override
     public void registerRender() {
         RENDER.getAllowedValues().forEach(render -> ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), Arrays.asList(Render.values()).indexOf(render), new ModelResourceLocation(this.getRegistryName().toString(), "render=" + render.getName())));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0,new ModelResourceLocation(this.getRegistryName().toString(), "render=off"));
     }
 
     public IBlockState setMultiblockRender(IBlockState state, EnumFacing facing, boolean enable) {

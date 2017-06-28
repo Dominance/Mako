@@ -16,13 +16,13 @@ public class ClientProxy extends CommonProxy {
 
         MinecraftForge.EVENT_BUS.register(new GeiserRender());
 
-        blockRegistry.forEach((s, iRegistrable) -> iRegistrable.registerRender());
+
     }
 
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
-
+        blockRegistry.forEach((s, iRegistrable) -> iRegistrable.registerRender());
     }
 
     @Override
