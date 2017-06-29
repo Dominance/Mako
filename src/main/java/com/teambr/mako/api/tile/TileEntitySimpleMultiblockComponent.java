@@ -14,6 +14,10 @@ public class TileEntitySimpleMultiblockComponent extends TileEntityBase {
 
     private BlockPos controller;
 
+    public TileEntitySimpleMultiblockComponent() {
+        super("simple_multiblock_component");
+    }
+
     public BlockPos getController() {
         return controller;
     }

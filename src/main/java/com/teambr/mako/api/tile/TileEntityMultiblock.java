@@ -9,9 +9,10 @@ public abstract class TileEntityMultiblock extends TileEntityDirectional impleme
 
     private IMultiblock multiblock;
 
-    public TileEntityMultiblock() {
-        super(EnumFacing.NORTH);
+    public TileEntityMultiblock(String name, EnumFacing facing) {
+        super(name, facing);
     }
+
 
     public IMultiblock getMultiblock() {
         return multiblock;

@@ -4,12 +4,14 @@ import com.teambr.mako.Mako;
 import com.teambr.mako.api.block.IRegistrable;
 import com.teambr.mako.api.tile.TileEntitySimpleMultiblockComponent;
 import com.teambr.mako.block.MakoBlock;
+import com.teambr.mako.block.PortableTankBlock;
 import com.teambr.mako.block.SimpleMultiblockBlock;
 import com.teambr.mako.block.invisible.TestInvisibleBlock;
 import com.teambr.mako.block.multiblock.InfuserControllerBlock;
 import com.teambr.mako.multiblock.InfuserMultiblock;
 import com.teambr.mako.network.PacketManager;
 import com.teambr.mako.tile.TileEntityInfuser;
+import com.teambr.mako.tile.TileEntityPortableTank;
 import com.teambr.mako.utils.Reference;
 import com.teambr.mako.world.GeiserChunkManager;
 import net.minecraft.util.ResourceLocation;
@@ -29,6 +31,7 @@ public class CommonProxy {
     static {
         addBlock(new InfuserControllerBlock());
         addBlock(new TestInvisibleBlock());
+        addBlock(new PortableTankBlock());
     }
 
     public void preInit(FMLPreInitializationEvent event) {
@@ -36,6 +39,7 @@ public class CommonProxy {
 
         GameRegistry.registerTileEntity(TileEntitySimpleMultiblockComponent.class, new ResourceLocation(Reference.MODID, "simple_multiblock_component_tile").toString());
         GameRegistry.registerTileEntity(TileEntityInfuser.class, new ResourceLocation(Reference.MODID, "infuser_tile").toString());
+        GameRegistry.registerTileEntity(TileEntityPortableTank.class, new ResourceLocation(Reference.MODID, "single_tank_tile").toString());
     }
 
     public void init(FMLInitializationEvent event) {

@@ -21,7 +21,7 @@ public class TileEntityInfuser extends TileEntityMultiblock {
     private MakoTank output;
 
     public TileEntityInfuser() {
-        super();
+        super("infuser", EnumFacing.NORTH);
         this.setMultiblock(InfuserMultiblock.INFUSER_MULTIBLOCK);
         primary = new MakoTank(4000);
         secondary = new MakoTank(4000);

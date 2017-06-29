@@ -62,4 +62,8 @@ public class MakoRegistry {
         }
         return null;
     }
+
+    public HashMap<String, IMako> getMakoRegistry() {
+        return makoRegistry;
+    }
 }

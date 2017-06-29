@@ -9,7 +9,11 @@ import javax.annotation.Nullable;
 
 public class TileEntityBase extends TileEntity {
 
+    private String name;
 
+    public TileEntityBase(String name) {
+        this.name = name + "_tile";
+    }
 
     @Nullable
     @Override
@@ -41,4 +45,8 @@ public class TileEntityBase extends TileEntity {
         markDirty();
     }
 
+
+    public String getName() {
+        return name;
+    }
 }

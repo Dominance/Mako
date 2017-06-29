@@ -7,9 +7,11 @@ public class TileEntityDirectional extends TileEntityBase {
 
     private EnumFacing facing;
 
-    public TileEntityDirectional(EnumFacing facing) {
+    public TileEntityDirectional(String name, EnumFacing facing) {
+        super(name);
         this.facing = facing;
     }
+
 
     public EnumFacing getFacing() {
         return facing;
