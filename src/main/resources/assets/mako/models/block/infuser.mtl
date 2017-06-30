@@ -1,16 +1,5 @@
 # Blender MTL File: 'infuser.blend'
-# Material Count: 3
-
-newmtl Glass
-Ns 96.078431
-Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.572578 0.363446
-Ks 0.036848 0.052668 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 0.504762
-illum 2
-map_Kd mako:blocks/infuser
+# Material Count: 2
 
 newmtl Hidden
 Ns 96.078431
@@ -21,6 +10,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.000000
 illum 2
+map_Kd mako:blocks/infuser
 
 newmtl Material
 Ns 96.078431
