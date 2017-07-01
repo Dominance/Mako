@@ -2,6 +2,7 @@ package com.teambr.mako.block.multiblock;
 
 
 import com.teambr.mako.block.SimpleMultiblockBlock;
+import com.teambr.mako.tile.TileEntityInfuser;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -16,6 +17,7 @@ public class InfuserControllerBlock extends SimpleMultiblockBlock {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
+        if (worldIn.isRemote) return new TileEntityInfuser();
         return null;
     }
 }

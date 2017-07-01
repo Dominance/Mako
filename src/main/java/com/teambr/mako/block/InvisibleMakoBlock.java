@@ -1,5 +1,6 @@
 package com.teambr.mako.block;
 
+import com.teambr.mako.api.block.Render;
 import com.teambr.mako.api.tile.TileEntitySimpleMultiblockComponent;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.properties.IProperty;
@@ -70,7 +71,12 @@ public class InvisibleMakoBlock extends MakoBlock implements ITileEntityProvider
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
+        if (worldIn.isRemote) return new TileEntitySimpleMultiblockComponent();
         return null;
+    }
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return !state.getValue(INVISIBLE);
     }
 
 }

@@ -13,7 +13,7 @@ public interface IMakoTank {
 
     MakoTankInfo getTankInfo();
 
-    void fill(MakoStack stack);
+    int fill(MakoStack stack);
 
     @Nullable
     void drain(int drainAmount);

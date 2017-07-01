@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 public interface IMakoHandler {
 
-    void fill(MakoStack stack);
+    int fill(MakoStack stack);
 
     @Nullable
     void drain(int max);

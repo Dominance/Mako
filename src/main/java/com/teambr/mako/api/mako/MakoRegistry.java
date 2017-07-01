@@ -22,14 +22,14 @@ public class MakoRegistry {
     private MakoRegistry() {
         makoRegistry = new HashMap<>();
         random = new Random();
-        this.addMako(new SimpleMako("air", new ResourceLocation(Reference.MODID, "icons/air"), 0xC8C800));
+        this.addMako(new SimpleMako("air", new ResourceLocation(Reference.MODID, "icons/air"), 0xFFFF00));
         this.addMako(new SimpleMako("water", new ResourceLocation(Reference.MODID, "icons/water"), 0x00C8C8));
         this.addMako(new SimpleMako("nature", new ResourceLocation(Reference.MODID, "icons/nature"), 0x00C832));
         this.addMako(new SimpleMako("fire", new ResourceLocation(Reference.MODID, "icons/fire"), 0xC86400));
-        this.addMako(new CombinedMako("ice", null, 0, this.getMako("water"), this.getMako("air")));
-        this.addMako(new CombinedMako("storm", null, 0, this.getMako("fire"), this.getMako("air")));
-        this.addMako(new CombinedMako("mystic", null, 0, this.getMako("nature"), this.getMako("water")));
-        this.addMako(new CombinedMako("magma", null, 0, this.getMako("nature"), this.getMako("fire")));
+        this.addMako(new CombinedMako("ice", null, 0x00FFFF, this.getMako("water"), this.getMako("air")));
+        this.addMako(new CombinedMako("storm", null, 0xC8C8C8, this.getMako("fire"), this.getMako("air")));
+        this.addMako(new CombinedMako("mystic", null, 0xFFC8FF, this.getMako("nature"), this.getMako("water")));
+        this.addMako(new CombinedMako("magma", null, 0xFF6400, this.getMako("nature"), this.getMako("fire")));
     }
 
     public void addMako(IMako mako) {

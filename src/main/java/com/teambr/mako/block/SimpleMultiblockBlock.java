@@ -109,4 +109,9 @@ public class SimpleMultiblockBlock extends MakoBlock implements ITileEntityProvi
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return null;
     }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 }

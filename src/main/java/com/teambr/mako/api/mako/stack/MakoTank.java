@@ -45,11 +45,16 @@ public class MakoTank implements IMakoTank, IMakoHandler {
     }
 
     @Override
-    public void fill(MakoStack stack) {
-        if (mako == null) mako = stack;
-        else if (mako.isMakoEqual(stack)) {
-            mako.fill(stack.getAmount());
+    public int fill(MakoStack stack) {
+        if (mako == null){
+            mako = stack;
+            return mako.getAmount();
+        } else if (mako.isMakoEqual(stack)) {
+            int amount = Math.min(capacity-mako.getAmount(), stack.getAmount());
+            mako.fill(amount);
+            return amount;
         }
+        return 0;
     }
 
     @Nullable

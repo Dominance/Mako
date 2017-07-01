@@ -3,18 +3,21 @@ package com.teambr.mako.tile;
 
 import com.teambr.mako.api.mako.CombinedMako;
 import com.teambr.mako.api.mako.MakoRegistry;
+import com.teambr.mako.api.mako.stack.CapabilityMakoHandler;
 import com.teambr.mako.api.mako.stack.MakoStack;
 import com.teambr.mako.api.mako.stack.MakoTank;
 import com.teambr.mako.api.tile.TileEntityMultiblock;
 import com.teambr.mako.multiblock.InfuserMultiblock;
+import com.teambr.mako.utils.BlockPosRelative;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
 
-public class TileEntityInfuser extends TileEntityMultiblock {
+public class TileEntityInfuser extends TileEntityMultiblock implements ITickable {
 
     private MakoTank primary;
     private MakoTank secondary;
@@ -23,8 +26,8 @@ public class TileEntityInfuser extends TileEntityMultiblock {
     public TileEntityInfuser() {
         super("infuser", EnumFacing.NORTH);
         this.setMultiblock(InfuserMultiblock.INFUSER_MULTIBLOCK);
-        primary = new MakoTank(4000);
-        secondary = new MakoTank(4000);
+        primary = new MakoTank(1000);
+        secondary = new MakoTank(1000);
         output = new MakoTank(1000);
     }
 
@@ -47,11 +50,13 @@ public class TileEntityInfuser extends TileEntityMultiblock {
 
     @Override
     public boolean hasExternalCapability(BlockPos pos, Capability<?> capability, @Nullable EnumFacing facing) {
+        if (pos.equals(BlockPosRelative.getRealBlockPosFromRelative(this.getFacing(), this.getPos(), new BlockPos(0,0,1))) && capability == CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY && facing == EnumFacing.UP)return true;
         return false;
     }
 
     @Override
     public <T> T getExternalCapability(BlockPos pos, Capability<T> capability, @Nullable EnumFacing facing) {
+        if (pos.equals(BlockPosRelative.getRealBlockPosFromRelative(this.getFacing(), this.getPos(), new BlockPos(0,0,1))) && capability == CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY && facing == EnumFacing.UP) return (T) secondary;
         return null;
     }
 
@@ -70,4 +75,34 @@ public class TileEntityInfuser extends TileEntityMultiblock {
         }
     }
 
+    @Override
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+        if (capability == CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY && facing == EnumFacing.UP) return true;
+        return super.hasCapability(capability, facing);
+    }
+
+    @Nullable
+    @Override
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+        if (capability == CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY && facing == EnumFacing.UP) return (T) primary;
+        return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public void update() {
+        if (world.isRemote) return;
+        if (world.getWorldTime() % 2 == 0) sendUpdates();
+    }
+
+    public MakoTank getPrimary() {
+        return primary;
+    }
+
+    public MakoTank getSecondary() {
+        return secondary;
+    }
+
+    public MakoTank getOutput() {
+        return output;
+    }
 }
