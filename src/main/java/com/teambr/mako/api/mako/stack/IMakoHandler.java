@@ -11,4 +11,6 @@ public interface IMakoHandler {
 
     @Nullable
     void drain(MakoStack res);
+
+    MakoStack getCurrent();
 }

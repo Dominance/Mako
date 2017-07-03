@@ -60,8 +60,8 @@ public class TileEntityPortableTank extends TileEntityTick {
 
     @Override
     public void update() {
-        if (world.isRemote) return;
-        if (world.getWorldTime() % 2 == 0){
+        if (world.isRemote || tank.getMakoStack() == null) return;
+        if (world.getWorldTime() % 2 == 0){ //TODO
             TileEntity entity = world.getTileEntity(this.pos.add(0,-1,0));
             if (entity != null && entity.hasCapability(CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY, EnumFacing.UP)){
                 tank.drain(entity.getCapability(CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY, EnumFacing.UP).fill(new MakoStack(tank.getMakoStack().getMako(), 10)));

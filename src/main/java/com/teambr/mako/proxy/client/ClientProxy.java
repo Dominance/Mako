@@ -3,7 +3,9 @@ package com.teambr.mako.proxy.client;
 import com.teambr.mako.proxy.CommonProxy;
 import com.teambr.mako.proxy.client.event.MakoTextuxteStichEvent;
 import com.teambr.mako.proxy.client.render.GeiserRender;
+import com.teambr.mako.proxy.client.render.TileEntityFaucetSpecialRender;
 import com.teambr.mako.proxy.client.render.TileEntityInfuserSpecialRender;
+import com.teambr.mako.tile.TileEntityFaucet;
 import com.teambr.mako.tile.TileEntityInfuser;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,6 +25,7 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(new MakoTextuxteStichEvent());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityInfuser.class, new TileEntityInfuserSpecialRender());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFaucet.class, new TileEntityFaucetSpecialRender());
     }
 
     @Override

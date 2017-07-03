@@ -90,4 +90,9 @@ public class MakoTank implements IMakoTank, IMakoHandler {
             mako.drain(res.getAmount());
         }
     }
+
+    @Override
+    public MakoStack getCurrent() {
+        return mako;
+    }
 }

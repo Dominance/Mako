@@ -6,10 +6,12 @@ import com.teambr.mako.api.tile.TileEntitySimpleMultiblockComponent;
 import com.teambr.mako.block.MakoBlock;
 import com.teambr.mako.block.PortableTankBlock;
 import com.teambr.mako.block.SimpleMultiblockBlock;
+import com.teambr.mako.block.directional.FaucetBlock;
 import com.teambr.mako.block.invisible.TestInvisibleBlock;
 import com.teambr.mako.block.multiblock.InfuserControllerBlock;
 import com.teambr.mako.multiblock.InfuserMultiblock;
 import com.teambr.mako.network.PacketManager;
+import com.teambr.mako.tile.TileEntityFaucet;
 import com.teambr.mako.tile.TileEntityInfuser;
 import com.teambr.mako.tile.TileEntityPortableTank;
 import com.teambr.mako.utils.Reference;
@@ -32,6 +34,7 @@ public class CommonProxy {
         addBlock(new InfuserControllerBlock());
         addBlock(new TestInvisibleBlock());
         addBlock(new PortableTankBlock());
+        addBlock(new FaucetBlock());
     }
 
     public void preInit(FMLPreInitializationEvent event) {
@@ -40,6 +43,7 @@ public class CommonProxy {
         GameRegistry.registerTileEntity(TileEntitySimpleMultiblockComponent.class, new ResourceLocation(Reference.MODID, "simple_multiblock_component_tile").toString());
         GameRegistry.registerTileEntity(TileEntityInfuser.class, new ResourceLocation(Reference.MODID, "infuser_tile").toString());
         GameRegistry.registerTileEntity(TileEntityPortableTank.class, new ResourceLocation(Reference.MODID, "single_tank_tile").toString());
+        GameRegistry.registerTileEntity(TileEntityFaucet.class, new ResourceLocation(Reference.MODID, "faucet_tile").toString());
     }
 
     public void init(FMLInitializationEvent event) {
