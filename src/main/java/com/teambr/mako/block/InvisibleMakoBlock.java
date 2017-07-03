@@ -1,6 +1,5 @@
 package com.teambr.mako.block;
 
-import com.teambr.mako.api.block.Render;
 import com.teambr.mako.api.tile.TileEntitySimpleMultiblockComponent;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.properties.IProperty;
@@ -43,7 +42,7 @@ public class InvisibleMakoBlock extends MakoBlock implements ITileEntityProvider
     public void registerRender() {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(this.getRegistryName().toString(), "invisible=false"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 1, new ModelResourceLocation(this.getRegistryName().toString(), "invisible=true"));
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0,new ModelResourceLocation(this.getRegistryName().toString(), "invisible=false"));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0, new ModelResourceLocation(this.getRegistryName().toString(), "invisible=false"));
     }
 
     public IBlockState setInvisible(IBlockState state, boolean invisible) {
@@ -74,6 +73,7 @@ public class InvisibleMakoBlock extends MakoBlock implements ITileEntityProvider
         if (worldIn.isRemote) return new TileEntitySimpleMultiblockComponent();
         return null;
     }
+
     @Override
     public boolean isFullCube(IBlockState state) {
         return !state.getValue(INVISIBLE);

@@ -52,7 +52,7 @@ public class SimpleMultiblockBlock extends MakoBlock implements ITileEntityProvi
     @Override
     public void registerRender() {
         RENDER.getAllowedValues().forEach(render -> ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), Arrays.asList(Render.values()).indexOf(render), new ModelResourceLocation(this.getRegistryName().toString(), "render=" + render.getName())));
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0,new ModelResourceLocation(this.getRegistryName().toString(), "render=off"));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0, new ModelResourceLocation(this.getRegistryName().toString(), "render=off"));
     }
 
     public IBlockState setMultiblockRender(IBlockState state, EnumFacing facing, boolean enable) {

@@ -3,7 +3,6 @@ package com.teambr.mako.block.directional;
 import com.teambr.mako.block.DirectionalBlock;
 import com.teambr.mako.tile.TileEntityFaucet;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -16,7 +15,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class FaucetBlock extends DirectionalBlock implements ITileEntityProvider{
+public class FaucetBlock extends DirectionalBlock implements ITileEntityProvider {
 
     public FaucetBlock() {
         super("faucet");
@@ -25,20 +24,20 @@ public class FaucetBlock extends DirectionalBlock implements ITileEntityProvider
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         EnumFacing facing = state.getValue(FACING);
-        if (facing == EnumFacing.NORTH) return new AxisAlignedBB(0.25,0.09,0.6,0.75,0.59,0);
-        if (facing == EnumFacing.SOUTH)return new AxisAlignedBB(0.25,0.09,0.4,0.75,0.59,1);
-        if (facing == EnumFacing.EAST)return new AxisAlignedBB(0.4,0.09,0.25,1,0.59,0.75);
-        return new AxisAlignedBB(0.6,0.09,0.25,0,0.59,0.75);
+        if (facing == EnumFacing.NORTH) return new AxisAlignedBB(0.25, 0.09, 0.6, 0.75, 0.59, 0);
+        if (facing == EnumFacing.SOUTH) return new AxisAlignedBB(0.25, 0.09, 0.4, 0.75, 0.59, 1);
+        if (facing == EnumFacing.EAST) return new AxisAlignedBB(0.4, 0.09, 0.25, 1, 0.59, 0.75);
+        return new AxisAlignedBB(0.6, 0.09, 0.25, 0, 0.59, 0.75);
     }
 
     @Nullable
     @Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         EnumFacing facing = blockState.getValue(FACING);
-        if (facing == EnumFacing.NORTH) return new AxisAlignedBB(0.25,0.09,0.6,0.75,0.59,0);
-        if (facing == EnumFacing.SOUTH)return new AxisAlignedBB(0.25,0.09,0.4,0.75,0.59,1);
-        if (facing == EnumFacing.EAST)return new AxisAlignedBB(0.4,0.09,0.25,1,0.59,0.75);
-        return new AxisAlignedBB(0.6,0.09,0.25,0,0.59,0.75);
+        if (facing == EnumFacing.NORTH) return new AxisAlignedBB(0.25, 0.09, 0.6, 0.75, 0.59, 0);
+        if (facing == EnumFacing.SOUTH) return new AxisAlignedBB(0.25, 0.09, 0.4, 0.75, 0.59, 1);
+        if (facing == EnumFacing.EAST) return new AxisAlignedBB(0.4, 0.09, 0.25, 1, 0.59, 0.75);
+        return new AxisAlignedBB(0.6, 0.09, 0.25, 0, 0.59, 0.75);
     }
 
 
@@ -66,7 +65,7 @@ public class FaucetBlock extends DirectionalBlock implements ITileEntityProvider
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) return true;
-        if (worldIn.getTileEntity(pos) instanceof TileEntityFaucet){
+        if (worldIn.getTileEntity(pos) instanceof TileEntityFaucet) {
             ((TileEntityFaucet) worldIn.getTileEntity(pos)).toggle();
             return true;
         }

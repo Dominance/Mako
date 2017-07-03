@@ -37,6 +37,11 @@ public class CommonProxy {
         addBlock(new FaucetBlock());
     }
 
+    public static void addBlock(MakoBlock block) {
+        Mako.LOGGER.log(Level.INFO, "Added Block " + block.getRegistryName());
+        blockRegistry.put(block.getRegistryName().getResourcePath(), block);
+    }
+
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(GeiserChunkManager.getInstance());
 
@@ -53,11 +58,5 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent event) {
 
-    }
-
-
-    public static void addBlock(MakoBlock block) {
-        Mako.LOGGER.log(Level.INFO, "Added Block " + block.getRegistryName());
-        blockRegistry.put(block.getRegistryName().getResourcePath(), block);
     }
 }

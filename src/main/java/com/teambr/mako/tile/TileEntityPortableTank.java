@@ -7,7 +7,6 @@ import com.teambr.mako.api.tile.TileEntityTick;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
@@ -61,9 +60,9 @@ public class TileEntityPortableTank extends TileEntityTick {
     @Override
     public void update() {
         if (world.isRemote || tank.getMakoStack() == null) return;
-        if (world.getWorldTime() % 2 == 0){ //TODO
-            TileEntity entity = world.getTileEntity(this.pos.add(0,-1,0));
-            if (entity != null && entity.hasCapability(CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY, EnumFacing.UP)){
+        if (world.getWorldTime() % 2 == 0) { //TODO
+            TileEntity entity = world.getTileEntity(this.pos.add(0, -1, 0));
+            if (entity != null && entity.hasCapability(CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY, EnumFacing.UP)) {
                 tank.drain(entity.getCapability(CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY, EnumFacing.UP).fill(new MakoStack(tank.getMakoStack().getMako(), 10)));
             }
         }

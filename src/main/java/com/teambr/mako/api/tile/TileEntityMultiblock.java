@@ -18,6 +18,10 @@ public abstract class TileEntityMultiblock extends TileEntityDirectional impleme
         return multiblock;
     }
 
+    public void setMultiblock(IMultiblock multiblock) {
+        this.multiblock = multiblock;
+    }
+
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound = super.writeToNBT(compound);
@@ -27,10 +31,6 @@ public abstract class TileEntityMultiblock extends TileEntityDirectional impleme
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-    }
-
-    public void setMultiblock(IMultiblock multiblock) {
-        this.multiblock = multiblock;
     }
 
     public void destroyMultiblock() {

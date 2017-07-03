@@ -11,14 +11,8 @@ import java.util.Random;
 public class MakoRegistry {
 
     private static MakoRegistry ourInstance = new MakoRegistry();
-
-    public static MakoRegistry getInstance() {
-        return ourInstance;
-    }
-
     private HashMap<String, IMako> makoRegistry;
     private Random random;
-
     private MakoRegistry() {
         makoRegistry = new HashMap<>();
         random = new Random();
@@ -30,6 +24,10 @@ public class MakoRegistry {
         this.addMako(new CombinedMako("storm", null, 0xC8C8C8, this.getMako("fire"), this.getMako("air")));
         this.addMako(new CombinedMako("mystic", null, 0xFFC8FF, this.getMako("nature"), this.getMako("water")));
         this.addMako(new CombinedMako("magma", null, 0xFF6400, this.getMako("nature"), this.getMako("fire")));
+    }
+
+    public static MakoRegistry getInstance() {
+        return ourInstance;
     }
 
     public void addMako(IMako mako) {

@@ -1,7 +1,6 @@
 package com.teambr.mako.block;
 
 
-import com.teambr.mako.api.block.Render;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -12,17 +11,12 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-
-import javax.annotation.Nullable;
 
 
 public class DirectionalBlock extends MakoBlock {
@@ -40,8 +34,7 @@ public class DirectionalBlock extends MakoBlock {
     }
 
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state)
-    {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }
 
@@ -55,21 +48,19 @@ public class DirectionalBlock extends MakoBlock {
     }
 
     @Override
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((EnumFacing)state.getValue(FACING)).getIndex();
+    public int getMetaFromState(IBlockState state) {
+        return ((EnumFacing) state.getValue(FACING)).getIndex();
     }
 
     @Override
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[]{FACING});
     }
 
     @Override
     public void registerRender() {
-        FACING.getAllowedValues().forEach(render -> ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this),render.getIndex(), new ModelResourceLocation(this.getRegistryName().toString(), "facing=" + render.getName())));
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0,new ModelResourceLocation(this.getRegistryName().toString(), "inventory"));
+        FACING.getAllowedValues().forEach(render -> ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), render.getIndex(), new ModelResourceLocation(this.getRegistryName().toString(), "facing=" + render.getName())));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0, new ModelResourceLocation(this.getRegistryName().toString(), "inventory"));
     }
 
     @Override

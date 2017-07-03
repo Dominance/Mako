@@ -20,17 +20,15 @@ import java.util.Random;
 public class GeiserChunkManager {
 
     private static GeiserChunkManager ourInstance = new GeiserChunkManager();
-
-    public static GeiserChunkManager getInstance() {
-        return ourInstance;
-    }
-
     private HashMap<ChunkPos, GeiserData> chunkGeiserData;
     private Random random;
-
     private GeiserChunkManager() {
         chunkGeiserData = new HashMap<>();
         random = new Random(); //TODO Use a better random
+    }
+
+    public static GeiserChunkManager getInstance() {
+        return ourInstance;
     }
 
     @SubscribeEvent

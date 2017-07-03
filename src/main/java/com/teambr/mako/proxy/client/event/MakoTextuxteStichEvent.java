@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class MakoTextuxteStichEvent {
 
     @SubscribeEvent
-    public void textureStich(TextureStitchEvent.Pre pre){
+    public void textureStich(TextureStitchEvent.Pre pre) {
         pre.getMap().registerSprite(new ResourceLocation(Reference.MODID, "blocks/mako_still"));
         pre.getMap().registerSprite(new ResourceLocation(Reference.MODID, "blocks/mako_flow"));
     }

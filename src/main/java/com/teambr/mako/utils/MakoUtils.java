@@ -27,7 +27,7 @@ public class MakoUtils {
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);//TOP
         buffer.pos(x1, maxY, z1).tex(still.getInterpolatedU(0), still.getInterpolatedV(0)).lightmap(j, k).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
         buffer.pos(x1, maxY, z2).tex(still.getInterpolatedU(0), still.getInterpolatedV(16)).lightmap(j, k).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
-        buffer.pos(x2, maxY, z2).tex(still.getInterpolatedU(16), still.getInterpolatedV(16 )).lightmap(j, k).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
+        buffer.pos(x2, maxY, z2).tex(still.getInterpolatedU(16), still.getInterpolatedV(16)).lightmap(j, k).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
         buffer.pos(x2, maxY, z1).tex(still.getInterpolatedU(16), still.getInterpolatedV(0)).lightmap(j, k).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
         tess.draw();
 

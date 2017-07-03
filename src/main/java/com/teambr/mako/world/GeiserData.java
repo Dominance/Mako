@@ -16,19 +16,18 @@ public class GeiserData {
         this.lastOutput = lastOutput;
     }
 
+    public static GeiserData readFromNBT(NBTTagCompound compound) {
+        return new GeiserData(compound.hasKey("Type") ? MakoRegistry.getInstance().getMako(compound.getString("Type")) : MakoRegistry.getInstance().getRandomPureMako(),
+                compound.hasKey("Amount") ? compound.getInteger("Amount") : 0,
+                compound.hasKey("LastOutput") ? compound.getLong("LastOutput") : 0);
+    }
+
     public NBTTagCompound writeFromNBT() {
         NBTTagCompound compound = new NBTTagCompound();
         compound.setString("Type", mako.getName());
         compound.setInteger("Amount", currentAmount);
         compound.setLong("LastOutput", lastOutput);
         return compound;
-    }
-
-
-    public static GeiserData readFromNBT(NBTTagCompound compound) {
-        return new GeiserData(compound.hasKey("Type") ? MakoRegistry.getInstance().getMako(compound.getString("Type")) : MakoRegistry.getInstance().getRandomPureMako(),
-                compound.hasKey("Amount") ? compound.getInteger("Amount") : 0,
-                compound.hasKey("LastOutput") ? compound.getLong("LastOutput") : 0);
     }
 
     @Override

@@ -29,6 +29,16 @@ public class MakoStack {
         this(stack.getMako(), amount);
     }
 
+    @Nullable
+    public static MakoStack loadFromNBT(NBTTagCompound nbt) {
+        if (nbt == null) return null;
+        if (!nbt.hasKey("MakoName")) return null;
+        String name = nbt.getString("MakoName");
+        IMako mako = MakoRegistry.getInstance().getMako(name);
+        if (mako == null) return null;
+        return new MakoStack(mako, nbt.getInteger("Amount"));
+    }
+
     public int getAmount() {
         return amount;
     }
@@ -41,16 +51,6 @@ public class MakoStack {
         nbt.setString("MakoName", mako.getName());
         nbt.setInteger("Amount", amount);
         return nbt;
-    }
-
-    @Nullable
-    public static MakoStack loadFromNBT(NBTTagCompound nbt) {
-        if (nbt == null) return null;
-        if (!nbt.hasKey("MakoName")) return null;
-        String name = nbt.getString("MakoName");
-        IMako mako = MakoRegistry.getInstance().getMako(name);
-        if (mako == null) return null;
-        return new MakoStack(mako, nbt.getInteger("Amount"));
     }
 
     public boolean isMakoEqual(MakoStack other) {

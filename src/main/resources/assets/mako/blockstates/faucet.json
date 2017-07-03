@@ -11,7 +11,11 @@
       {
         "model": "mako:faucet.obj",
         "transform": {
-          "translation": [0, 0, -0.45],
+          "translation": [
+            0,
+            0,
+            -0.45
+          ],
           "rotation": {
             "z": 45
           }
@@ -22,7 +26,11 @@
       "north": {
         "model": "mako:faucet.obj",
         "transform": {
-          "translation": [0,-0.16, -0.45],
+          "translation": [
+            0,
+            -0.16,
+            -0.45
+          ],
           "rotation": {
             "y": 0
           }
@@ -31,7 +39,11 @@
       "south": {
         "model": "mako:faucet.obj",
         "transform": {
-          "translation": [0, -0.16, 0.45],
+          "translation": [
+            0,
+            -0.16,
+            0.45
+          ],
           "rotation": {
             "y": 180
           }
@@ -40,7 +52,11 @@
       "west": {
         "model": "mako:faucet.obj",
         "transform": {
-          "translation": [-0.45, -0.16, 0],
+          "translation": [
+            -0.45,
+            -0.16,
+            0
+          ],
           "rotation": {
             "y": 90
           }
@@ -49,7 +65,11 @@
       "east": {
         "model": "mako:faucet.obj",
         "transform": {
-          "translation": [0.45, -0.16, 0],
+          "translation": [
+            0.45,
+            -0.16,
+            0
+          ],
           "rotation": {
             "y": -90
           }

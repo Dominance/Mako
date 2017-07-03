@@ -1,32 +1,13 @@
 package com.teambr.mako.proxy.client.render;
 
-import com.google.common.collect.ImmutableMap;
-import com.teambr.mako.api.mako.IMako;
-import com.teambr.mako.api.mako.MakoRegistry;
-import com.teambr.mako.block.SimpleMultiblockBlock;
 import com.teambr.mako.tile.TileEntityInfuser;
 import com.teambr.mako.utils.MakoUtils;
 import com.teambr.mako.utils.Reference;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.SimpleModelState;
-import net.minecraftforge.client.model.obj.OBJLoader;
-import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.client.model.pipeline.ForgeBlockModelRenderer;
-import net.minecraftforge.common.model.TRSRTransformation;
-import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
-import java.util.Arrays;
 
 public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<TileEntityInfuser> {
 
@@ -75,22 +56,19 @@ public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<Ti
 
         double offset = 0;
         if (te.getPrimary().getMakoStack() != null) {
-            MakoUtils.renderMako(te.getPrimary().getMakoStack().getMako(), x, y, z, 0,  0.0002d*te.getPrimary().getMakoAmount(), j, k, x1, x2, z1, z2);
-            offset += 0.0002d*te.getPrimary().getMakoAmount();
+            MakoUtils.renderMako(te.getPrimary().getMakoStack().getMako(), x, y, z, 0, 0.0002d * te.getPrimary().getMakoAmount(), j, k, x1, x2, z1, z2);
+            offset += 0.0002d * te.getPrimary().getMakoAmount();
         }
-        if (te.getSecondary().getMakoStack() != null ) {
-            MakoUtils.renderMako( te.getSecondary().getMakoStack().getMako(), x, y, z, offset, offset  + 0.0002d*te.getSecondary().getMakoAmount(), j, k, x1, x2, z1, z2);
-            offset  += 0.0002d*te.getSecondary().getMakoAmount();
+        if (te.getSecondary().getMakoStack() != null) {
+            MakoUtils.renderMako(te.getSecondary().getMakoStack().getMako(), x, y, z, offset, offset + 0.0002d * te.getSecondary().getMakoAmount(), j, k, x1, x2, z1, z2);
+            offset += 0.0002d * te.getSecondary().getMakoAmount();
         }
-        if (te.getOutput().getMakoStack() != null){
-            MakoUtils.renderMako(te.getOutput().getMakoStack().getMako(), x, y, z, offset, offset + 0.0002d*te.getOutput().getMakoAmount(), j, k, x1, x2, z1, z2);
+        if (te.getOutput().getMakoStack() != null) {
+            MakoUtils.renderMako(te.getOutput().getMakoStack().getMako(), x, y, z, offset, offset + 0.0002d * te.getOutput().getMakoAmount(), j, k, x1, x2, z1, z2);
         }
         GlStateManager.depthMask(true);
         GlStateManager.popMatrix();
     }
-
-
-
 
 
 }
