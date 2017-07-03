@@ -48,10 +48,12 @@ public class MakoTank implements IMakoTank, IMakoHandler {
     public int fill(MakoStack stack) {
         if (mako == null) {
             mako = stack;
+            onContentsChanged();
             return mako.getAmount();
         } else if (mako.isMakoEqual(stack)) {
             int amount = Math.min(capacity - mako.getAmount(), stack.getAmount());
             mako.fill(amount);
+            onContentsChanged();
             return amount;
         }
         return 0;
@@ -62,6 +64,7 @@ public class MakoTank implements IMakoTank, IMakoHandler {
     public void drain(int drainAmount) {
         mako.drain(drainAmount);
         if (mako.getAmount() <= 0) mako = null;
+        onContentsChanged();
     }
 
 
@@ -88,11 +91,16 @@ public class MakoTank implements IMakoTank, IMakoHandler {
     public void drain(MakoStack res) {
         if (mako.isMakoEqual(res)) {
             mako.drain(res.getAmount());
+            onContentsChanged();
         }
     }
 
     @Override
     public MakoStack getCurrent() {
         return mako;
+    }
+
+    public void onContentsChanged(){
+
     }
 }

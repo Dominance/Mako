@@ -43,9 +43,7 @@ public class TileEntityFaucet extends TileEntityTick {
             TileEntity down = world.getTileEntity(this.pos.add(0, -1, 0));
             TileEntity back = world.getTileEntity(this.pos.offset(this.world.getBlockState(this.pos).getValue(DirectionalBlock.FACING)));
             if (down == null || back == null) {
-                active = false;
-                source = null;
-                sendUpdates();
+                end();
                 return;
             }
             if (down.hasCapability(CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY, EnumFacing.UP) && back.hasCapability(CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY, this.world.getBlockState(this.pos).getValue(DirectionalBlock.FACING).getOpposite())) {
@@ -53,16 +51,26 @@ public class TileEntityFaucet extends TileEntityTick {
                 IMakoHandler backCap = back.getCapability(CapabilityMakoHandler.MAKO_HANDLER_CAPABILITY, this.world.getBlockState(this.pos).getValue(DirectionalBlock.FACING).getOpposite());
                 if (downCap.getCurrent() == null || (backCap.getCurrent() != null && backCap.getCurrent().isMakoEqual(downCap.getCurrent()))) {
                     source = backCap.getCurrent().getMako().getName();
+                    int toDrain = Math.min(backCap.getCurrent().getAmount(), 10);
+                    if (toDrain == 0){
+                        end();
+                        return;
+                    }
                     int amount = downCap.fill(new MakoStack(backCap.getCurrent().getMako(), 10));
                     if (amount == 0) {
-                        active = false;
-                        source = null;
-                        sendUpdates();
+                        end();
+                        return;
                     }
                     backCap.drain(amount);
                 }
             }
         }
+    }
+
+    public void end(){
+        active = false;
+        source = null;
+        sendUpdates();
     }
 
     public void toggle() {

@@ -23,13 +23,30 @@ public class TileEntityInfuser extends TileEntityMultiblock implements ITickable
     private MakoTank primary;
     private MakoTank secondary;
     private MakoTank output;
+    private int tick;
 
     public TileEntityInfuser() {
         super("infuser", EnumFacing.NORTH);
         this.setMultiblock(InfuserMultiblock.INFUSER_MULTIBLOCK);
-        primary = new MakoTank(1000);
-        secondary = new MakoTank(1000);
-        output = new MakoTank(1000);
+        primary = new MakoTank(1000){
+            @Override
+            public void onContentsChanged() {
+                TileEntityInfuser.this.sendUpdates();
+            }
+        };
+        secondary = new MakoTank(1000){
+            @Override
+            public void onContentsChanged() {
+                TileEntityInfuser.this.sendUpdates();
+            }
+        };
+        output = new MakoTank(1000){
+            @Override
+            public void onContentsChanged() {
+                TileEntityInfuser.this.sendUpdates();
+            }
+        };
+        tick = 0;
     }
 
     @Override
@@ -100,10 +117,14 @@ public class TileEntityInfuser extends TileEntityMultiblock implements ITickable
     @Override
     public void update() {
         if (world.isRemote) return;
-        if (world.getWorldTime() % 2 == 0) {
-            work();
+        work();
+
+        ++tick;
+        if (tick >= 20){
             sendUpdates();
+            tick = 0;
         }
+
     }
 
     public MakoTank getPrimary() {
