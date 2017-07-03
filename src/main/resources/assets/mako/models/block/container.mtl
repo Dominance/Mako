@@ -10,7 +10,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd container.png
+map_Kd mako:blocks/container
 
 newmtl Material.002
 Ns 96.078431
@@ -21,7 +21,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 0.347368
 illum 2
-map_Kd container.png
+map_Kd mako:blocks/container
 
 newmtl Material_NONE
 Ns 96.078431

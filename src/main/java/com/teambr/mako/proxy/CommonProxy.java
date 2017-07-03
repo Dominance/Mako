@@ -4,7 +4,7 @@ import com.teambr.mako.Mako;
 import com.teambr.mako.api.block.IRegistrable;
 import com.teambr.mako.api.tile.TileEntitySimpleMultiblockComponent;
 import com.teambr.mako.block.MakoBlock;
-import com.teambr.mako.block.PortableTankBlock;
+import com.teambr.mako.block.normal.PortableTankBlock;
 import com.teambr.mako.block.SimpleMultiblockBlock;
 import com.teambr.mako.block.directional.FaucetBlock;
 import com.teambr.mako.block.invisible.TestInvisibleBlock;

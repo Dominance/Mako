@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "mako:container.obj",
+    "custom": {
+      "flip-v": true
+    }
+  },
+  "variants": {
+    "normal": {
+      "model": "mako:container.obj"
+    }
+  }
+}

@@ -1,9 +1,10 @@
-package com.teambr.mako.block;
+package com.teambr.mako.block.normal;
 
 import com.teambr.mako.api.mako.IMako;
 import com.teambr.mako.api.mako.MakoRegistry;
 import com.teambr.mako.api.mako.stack.MakoStack;
 import com.teambr.mako.api.mako.stack.MakoTank;
+import com.teambr.mako.block.MakoBlock;
 import com.teambr.mako.tile.TileEntityPortableTank;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
@@ -105,5 +106,15 @@ public class PortableTankBlock extends MakoBlock implements ITileEntityProvider 
 
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    }
+
+    @Override
+    public boolean isBlockNormalCube(IBlockState blockState) {
+        return false;
+    }
+
+    @Override
+    public boolean isOpaqueCube(IBlockState blockState) {
+        return false;
     }
 }
