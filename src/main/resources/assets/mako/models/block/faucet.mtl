@@ -1,7 +1,7 @@
 # Blender MTL File: 'faucet.blend'
 # Material Count: 2
 
-newmtl Material
+newmtl faucet
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -12,7 +12,7 @@ d 1.000000
 illum 2
 map_Kd mako:blocks/faucet
 
-newmtl Material_faucet.png
+newmtl faucet_faucet.png
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -21,4 +21,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd mako:blocks/faucet
+map_Kd map_Kd mako:blocks/faucet
