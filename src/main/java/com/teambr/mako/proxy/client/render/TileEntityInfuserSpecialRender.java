@@ -1,60 +1,57 @@
 package com.teambr.mako.proxy.client.render;
 
+import com.teambr.mako.proxy.client.ClientProxy;
 import com.teambr.mako.tile.TileEntityInfuser;
 import com.teambr.mako.utils.MakoUtils;
-import com.teambr.mako.utils.Reference;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<TileEntityInfuser> {
 
-    public static ResourceLocation flow = new ResourceLocation(Reference.MODID, "textures/blocks/mako_flow.png");
-    public static ResourceLocation still = new ResourceLocation(Reference.MODID, "textures/blocks/mako_still.png");
+
 
     @Override
     public void render(TileEntityInfuser te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.disableCull();
         RenderHelper.disableStandardItemLighting();
+        if (Minecraft.isAmbientOcclusionEnabled()) {
+            GlStateManager.shadeModel(GL11.GL_SMOOTH);
+        } else {
+            GlStateManager.shadeModel(GL11.GL_FLAT);
+        }
         int i = te.getWorld().getCombinedLight(te.getPos(), 0);
         int j = i >> 16 & 65535;
         int k = i & 65535;
         double x1, x2, z1, z2;
         x1 = x2 = z1 = z2 = 0;
+        x2 = 0.65;
+        z2 = 1.65;
         if (te.getFacing().equals(EnumFacing.NORTH)) {
-            x2 = 1.65;
-            z2 = 0.75;
-            x += 0.15;
-            z += 0.15;
+            GlStateManager.translate(x, y - 1, z + 1);
+            GlStateManager.rotate(90, 0, 1, 0);
         }
         if (te.getFacing().equals(EnumFacing.SOUTH)) {
-            x2 = 1.65;
-            z2 = 0.65;
-            --x;
-            x += 0.15;
-            z += 0.15;
+            GlStateManager.translate(x + 1, y - 1, z);
+            GlStateManager.rotate(90, 0, -1, 0);
         }
         if (te.getFacing().equals(EnumFacing.EAST)) {
-            x2 = 0.75;
-            z2 = 1.65;
-            x += 0.15;
-            z += 0.15;
+            GlStateManager.translate(x, y - 1, z);
+
         }
         if (te.getFacing().equals(EnumFacing.WEST)) {
-            x2 = 0.65;
-            z2 = 1.65;
-            x += 0.15;
-            z += 0.15;
-            --z;
-        }
+            GlStateManager.translate(x, y - 1, z - 1);
 
+        }
+        Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ClientProxy.infuser_rotor, i, 0, 0, 0);
         double offset = 0;
+        GlStateManager.translate(0.15, 1, 0.15);
         if (te.getPrimary().getMakoStack() != null) {
             MakoUtils.renderMako(te.getPrimary().getMakoStack().getMako(), x, y, z, 0, 0.0002d * te.getPrimary().getMakoAmount(), j, k, x1, x2, z1, z2);
             offset += 0.0002d * te.getPrimary().getMakoAmount();

@@ -18,7 +18,7 @@ public class MakoUtils {
         Tessellator tess = Tessellator.getInstance();
         BufferBuilder buffer = tess.getBuffer();
 
-        buffer.setTranslation(x, y, z);
+        //buffer.setTranslation(x, y, z);
 
         Color c = new Color(mako.color());
         Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
