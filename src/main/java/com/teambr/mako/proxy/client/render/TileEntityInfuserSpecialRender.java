@@ -66,7 +66,7 @@ public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<Ti
 
         if (te.getFacing().equals(EnumFacing.NORTH)) {
             GlStateManager.translate(-0.15 + 0.5, 0.5, -0.15);
-            GlStateManager.rotate(getWorld().getTotalWorldTime() % 360, 0, 0, 1);
+            GlStateManager.rotate((getWorld().getTotalWorldTime() % 360) * 5, 0, 0, 1);
         }
         if (te.getFacing().equals(EnumFacing.SOUTH)) {
             GlStateManager.translate(x + 1, y, z);
