@@ -6,6 +6,7 @@ import com.teambr.mako.utils.MakoUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
 import org.lwjgl.opengl.GL11;
@@ -36,6 +37,7 @@ public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<Ti
         if (te.getFacing().equals(EnumFacing.NORTH)) {
             GlStateManager.translate(x, y - 1, z + 1);
             GlStateManager.rotate(90, 0, 1, 0);
+            GlStateManager.rotate(te.getWorld().getTotalWorldTime() % 360, 0, 0, 1);
         }
         if (te.getFacing().equals(EnumFacing.SOUTH)) {
             GlStateManager.translate(x + 1, y - 1, z);
@@ -47,9 +49,9 @@ public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<Ti
         }
         if (te.getFacing().equals(EnumFacing.WEST)) {
             GlStateManager.translate(x, y - 1, z - 1);
-
         }
-        Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ClientProxy.infuser_rotor, i, 0, 0, 0);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ClientProxy.infuser_rotor, 0.5f, 255, 255, 255);
         double offset = 0;
         GlStateManager.translate(0.15, 1, 0.15);
         if (te.getPrimary().getMakoStack() != null) {

@@ -11,5 +11,6 @@ public class MakoTextuxteStichEvent {
     public void textureStich(TextureStitchEvent.Pre pre) {
         pre.getMap().registerSprite(new ResourceLocation(Reference.MODID, "blocks/mako_still"));
         pre.getMap().registerSprite(new ResourceLocation(Reference.MODID, "blocks/mako_flow"));
+        pre.getMap().registerSprite(new ResourceLocation(Reference.MODID, "blocks/infuser_rotor"));
     }
 }

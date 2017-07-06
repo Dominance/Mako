@@ -8,10 +8,11 @@ import com.teambr.mako.proxy.client.render.TileEntityInfuserSpecialRender;
 import com.teambr.mako.tile.TileEntityFaucet;
 import com.teambr.mako.tile.TileEntityInfuser;
 import com.teambr.mako.utils.Reference;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ClientProxy extends CommonProxy {
 
     public static IBakedModel infuser_rotor;
+    public static IModel infuser_model;
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
@@ -40,7 +42,8 @@ public class ClientProxy extends CommonProxy {
         super.init(event);
         blockRegistry.forEach((s, iRegistrable) -> iRegistrable.registerRender());
         try {
-            infuser_rotor = OBJLoader.INSTANCE.loadModel(new ResourceLocation(Reference.MODID, "models/block/infuser_rotor.obj")).bake(TRSRTransformation.identity(), DefaultVertexFormats.BLOCK, resourceLocation -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(resourceLocation.toString()));
+            infuser_model = OBJLoader.INSTANCE.loadModel(new ResourceLocation(Reference.MODID, "models/block/infuser_rotor.obj"));
+            infuser_rotor = infuser_model.bake(TRSRTransformation.identity(), DefaultVertexFormats.BLOCK, ModelLoader.defaultTextureGetter());
         } catch (Exception e) {
             e.printStackTrace();
         }
