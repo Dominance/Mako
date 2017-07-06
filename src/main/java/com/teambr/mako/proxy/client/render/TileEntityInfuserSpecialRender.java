@@ -14,7 +14,6 @@ import org.lwjgl.opengl.GL11;
 public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<TileEntityInfuser> {
 
 
-
     @Override
     public void render(TileEntityInfuser te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
@@ -49,7 +48,6 @@ public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<Ti
         if (te.getFacing().equals(EnumFacing.WEST)) {
             GlStateManager.translate(x, y - 1, z - 1);
         }
-
         double offset = 0;
         GlStateManager.translate(0.15, 1, 0.15);
         if (te.getPrimary().getMakoStack() != null) {
@@ -63,8 +61,8 @@ public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<Ti
         if (te.getOutput().getMakoStack() != null) {
             MakoUtils.renderMako(te.getOutput().getMakoStack().getMako(), x, y, z, offset, offset + 0.0002d * te.getOutput().getMakoAmount(), j, k, x1, x2, z1, z2);
         }
-        GlStateManager.translate(-0.15 + 0.5, 0.5, -0.15);
-        GlStateManager.rotate((getWorld().getTotalWorldTime() % 360) * 15, 0, 0, 1); //TODO Change rotation based on tile
+        GlStateManager.translate(-0.15 + 0.5, 0.38, -0.15);
+        //GlStateManager.rotate((getWorld().getTotalWorldTime() % 360) *0.5f, 0, 0, 1); //TODO Change rotation based on tile
         Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ClientProxy.infuser_rotor, 0.5f, 255, 255, 255);
         GlStateManager.depthMask(true);
