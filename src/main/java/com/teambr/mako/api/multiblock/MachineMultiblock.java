@@ -85,6 +85,7 @@ public class MachineMultiblock<T extends TileEntityMultiblock> implements IMulti
                         tileEntityMultiblock.setWorld(world);
                         tileEntityMultiblock.setFacing(playerFacing);
                         tileEntityMultiblock.setMultiblock(this);
+                        tileEntityMultiblock.setFormed(true);
                         world.setTileEntity(blockPos, tileEntityMultiblock);
                         tileEntityMultiblock.markDirty();
                     }

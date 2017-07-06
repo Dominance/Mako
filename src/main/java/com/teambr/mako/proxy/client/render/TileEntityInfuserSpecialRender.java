@@ -17,6 +17,7 @@ public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<Ti
     @Override
     public void render(TileEntityInfuser te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
+        if (!te.isFormed()) return;
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.disableCull();
