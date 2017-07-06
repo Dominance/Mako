@@ -37,7 +37,6 @@ public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<Ti
         if (te.getFacing().equals(EnumFacing.NORTH)) {
             GlStateManager.translate(x, y - 1, z + 1);
             GlStateManager.rotate(90, 0, 1, 0);
-            GlStateManager.rotate(te.getWorld().getTotalWorldTime() % 360, 0, 0, 1);
         }
         if (te.getFacing().equals(EnumFacing.SOUTH)) {
             GlStateManager.translate(x + 1, y - 1, z);
@@ -50,8 +49,7 @@ public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<Ti
         if (te.getFacing().equals(EnumFacing.WEST)) {
             GlStateManager.translate(x, y - 1, z - 1);
         }
-        Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ClientProxy.infuser_rotor, 0.5f, 255, 255, 255);
+
         double offset = 0;
         GlStateManager.translate(0.15, 1, 0.15);
         if (te.getPrimary().getMakoStack() != null) {
@@ -65,6 +63,24 @@ public class TileEntityInfuserSpecialRender extends TileEntitySpecialRenderer<Ti
         if (te.getOutput().getMakoStack() != null) {
             MakoUtils.renderMako(te.getOutput().getMakoStack().getMako(), x, y, z, offset, offset + 0.0002d * te.getOutput().getMakoAmount(), j, k, x1, x2, z1, z2);
         }
+
+        if (te.getFacing().equals(EnumFacing.NORTH)) {
+            GlStateManager.translate(-0.15 + 0.5, 0.5, -0.15);
+            GlStateManager.rotate(getWorld().getTotalWorldTime() % 360, 0, 0, 1);
+        }
+        if (te.getFacing().equals(EnumFacing.SOUTH)) {
+            GlStateManager.translate(x + 1, y, z);
+            GlStateManager.rotate(90, 0, -1, 0);
+        }
+        if (te.getFacing().equals(EnumFacing.EAST)) {
+            GlStateManager.translate(x, y, z);
+
+        }
+        if (te.getFacing().equals(EnumFacing.WEST)) {
+            GlStateManager.translate(x, y - 1, z - 1);
+        }
+        Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ClientProxy.infuser_rotor, 0.5f, 255, 255, 255);
         GlStateManager.depthMask(true);
         GlStateManager.popMatrix();
     }
