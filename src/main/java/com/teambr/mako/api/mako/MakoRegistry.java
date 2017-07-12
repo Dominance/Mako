@@ -3,10 +3,7 @@ package com.teambr.mako.api.mako;
 import com.teambr.mako.utils.Reference;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class MakoRegistry {
 
@@ -51,12 +48,15 @@ public class MakoRegistry {
         return pure.get(random.nextInt(pure.size()));
     }
 
-    public CombinedMako getCombinedMakoFromParents(IMako first, IMako second) {
+    public CombinedMako getCombinedMakoFromParents(IMako... parents) {
         for (IMako mako : makoRegistry.values()) {
             if (!(mako instanceof CombinedMako)) continue;
-            if ((((CombinedMako) mako).getParentFirst().equals(first) && ((CombinedMako) mako).getParentSecond().equals(second)) || (((CombinedMako) mako).getParentFirst().equals(second) && ((CombinedMako) mako).getParentSecond().equals(first))) {
-                return (CombinedMako) mako;
+            if (parents.length != ((CombinedMako) mako).getParents().length) continue;
+            boolean isEqual = true;
+            for (IMako m1 : parents) {
+                if (!Arrays.asList((((CombinedMako) mako).getParents())).contains(m1)) isEqual = false;
             }
+            if (isEqual) return (CombinedMako) mako;
         }
         return null;
     }

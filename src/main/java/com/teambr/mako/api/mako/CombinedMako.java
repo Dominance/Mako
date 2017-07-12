@@ -7,15 +7,13 @@ public class CombinedMako implements IMako {
     private String name;
     private ResourceLocation icon;
     private int color;
-    private IMako parentFirst;
-    private IMako parentSecond;
+    private IMako[] parents;
 
-    public CombinedMako(String name, ResourceLocation icon, int color, IMako parentFirst, IMako parentSecond) {
+    public CombinedMako(String name, ResourceLocation icon, int color, IMako... parents) {
         this.name = name;
         this.icon = icon;
         this.color = color;
-        this.parentFirst = parentFirst;
-        this.parentSecond = parentSecond;
+        this.parents = parents;
     }
 
     @Override
@@ -33,11 +31,7 @@ public class CombinedMako implements IMako {
         return color;
     }
 
-    public IMako getParentFirst() {
-        return parentFirst;
-    }
-
-    public IMako getParentSecond() {
-        return parentSecond;
+    public IMako[] getParents() {
+        return parents;
     }
 }
