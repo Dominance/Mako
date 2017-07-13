@@ -58,8 +58,6 @@ public class MakoUtils {
         buffer.pos(z1, maxY, z1).tex(flow.getInterpolatedU(0), flow.getInterpolatedV(0)).lightmap(j, k).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
         buffer.pos(z1, minY, z1).tex(flow.getInterpolatedU(0), flow.getInterpolatedV(16 * maxY)).lightmap(j, k).color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()).endVertex();
         tess.draw();
-
-        buffer.setTranslation(0, 0, 0);
     }
 
 }

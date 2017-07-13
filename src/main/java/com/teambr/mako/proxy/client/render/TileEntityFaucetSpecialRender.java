@@ -24,6 +24,7 @@ public class TileEntityFaucetSpecialRender extends TileEntitySpecialRenderer<Til
         int j = i >> 16 & 65535;
         int k = i & 65535;
         double x1, x2, z1, z2;
+
         x1 = x2 = z1 = z2 = 0;
 
         if (te.getWorld().getBlockState(te.getPos()).getValue(DirectionalBlock.FACING).equals(EnumFacing.NORTH)) {
@@ -50,10 +51,9 @@ public class TileEntityFaucetSpecialRender extends TileEntitySpecialRenderer<Til
             x += 0.45;
             z += 0.48;
         }
+        GlStateManager.translate(x, y, z);
+        MakoUtils.renderMako(MakoRegistry.getInstance().getMako(te.getSource()), x, y, z, 0, 0.3, j, k, x1, x2, z1, z2);
 
-        if (te.getSource() != null) {
-            MakoUtils.renderMako(MakoRegistry.getInstance().getMako(te.getSource()), x, y, z, 0, 0.3, j, k, x1, x2, z1, z2);
-        }
 
         GlStateManager.depthMask(true);
         GlStateManager.disableBlend();
