@@ -5,7 +5,9 @@ import com.teambr.mako.api.mako.MakoRegistry;
 import com.teambr.mako.api.mako.stack.MakoStack;
 import com.teambr.mako.api.mako.stack.MakoTank;
 import com.teambr.mako.block.MakoBlock;
+import com.teambr.mako.proxy.CommonProxy;
 import com.teambr.mako.tile.TileEntityPortableTank;
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -28,8 +30,16 @@ import java.util.List;
 
 public class PortableTankBlock extends MakoBlock implements ITileEntityProvider {
 
+    public static CreativeTabs tankTab = new CreativeTabs("tank") {
+        @Override
+        public ItemStack getTabIconItem() {
+            return new ItemStack((Block) CommonProxy.blockRegistry.get("portable_tank"));
+        }
+    };
+
     public PortableTankBlock() {
         super("portable_tank");
+        this.setCreativeTab(tankTab);
     }
 
     @Nullable
